@@ -1,4 +1,4 @@
-package christmas.exception;
+package christmas.exception.custom;
 
 public abstract class IllegalOrderException extends CustomException {
     public IllegalOrderException() {

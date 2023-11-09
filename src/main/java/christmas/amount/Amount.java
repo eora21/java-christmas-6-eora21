@@ -1,6 +1,6 @@
 package christmas.amount;
 
-import christmas.exception.NegativeAmountException;
+import christmas.exception.critical.NegativeAmountException;
 
 public record Amount(int amount) {
     private static final int ZERO_AMOUNT = 0;

@@ -2,7 +2,7 @@ package christmas.amount;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import christmas.exception.NegativeAmountException;
+import christmas.exception.critical.NegativeAmountException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

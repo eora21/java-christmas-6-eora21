@@ -1,4 +1,4 @@
-package christmas.exception;
+package christmas.exception.critical;
 
 public class NegativeAmountException extends IllegalStateException {
     public NegativeAmountException() {
