@@ -8,6 +8,7 @@ import christmas.exception.non_fatal.illegal_order.OrderMenuDuplicateException;
 import christmas.exception.non_fatal.illegal_order.OrderMenuNotExistException;
 import christmas.exception.non_fatal.illegal_order.OrderQuantityNotPositiveException;
 import christmas.exception.non_fatal.OverMaxTotalOrderQuantityException;
+import christmas.information.Quantity;
 import christmas.menu.Menu;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -83,8 +84,8 @@ class OrderServiceTest {
     int getOrderDetailQuantity(List<OrderDetail> orderDetails, Menu menu) {
         return orderDetails.stream()
                 .filter(orderDetail -> orderDetail.getMenu() == menu)
-                .map(OrderDetail::getOrderQuantity)
-                .mapToInt(OrderQuantity::orderQuantity)
+                .map(OrderDetail::getQuantity)
+                .mapToInt(Quantity::quantity)
                 .findAny()
                 .orElseThrow();
     }

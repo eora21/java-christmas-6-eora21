@@ -5,7 +5,7 @@ import static christmas.menu.MenuGroup.DESSERT;
 import static christmas.menu.MenuGroup.DRINK;
 import static christmas.menu.MenuGroup.MAIN;
 
-import christmas.amount.Amount;
+import christmas.information.Amount;
 import christmas.exception.non_fatal.illegal_order.OrderMenuNotExistException;
 import java.util.Arrays;
 import java.util.Map;

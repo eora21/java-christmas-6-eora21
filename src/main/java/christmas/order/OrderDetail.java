@@ -1,21 +1,22 @@
 package christmas.order;
 
+import christmas.information.Quantity;
 import christmas.menu.Menu;
 
 public class OrderDetail {
     private final Menu menu;
-    private final OrderQuantity orderQuantity;
+    private final Quantity quantity;
 
-    public OrderDetail(Menu menu, int orderQuantity) {
+    public OrderDetail(Menu menu, int quantity) {
         this.menu = menu;
-        this.orderQuantity = new OrderQuantity(orderQuantity);
+        this.quantity = new Quantity(quantity);
     }
 
     public Menu getMenu() {
         return menu;
     }
 
-    public OrderQuantity getOrderQuantity() {
-        return orderQuantity;
+    public Quantity getQuantity() {
+        return quantity;
     }
 }

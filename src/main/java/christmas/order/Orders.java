@@ -3,6 +3,7 @@ package christmas.order;
 import christmas.exception.non_fatal.OrderOnlyOneMenuGroupException;
 import christmas.exception.non_fatal.illegal_order.OrderMenuDuplicateException;
 import christmas.exception.non_fatal.OverMaxTotalOrderQuantityException;
+import christmas.information.Quantity;
 import christmas.menu.Menu;
 import christmas.menu.MenuGroup;
 import java.util.Collections;
@@ -28,8 +29,8 @@ public class Orders {
 
     private void validateTotalOrderSize(List<OrderDetail> orderDetails) {
         int totalOrderQuantity = orderDetails.stream()
-                .map(OrderDetail::getOrderQuantity)
-                .mapToInt(OrderQuantity::orderQuantity)
+                .map(OrderDetail::getQuantity)
+                .mapToInt(Quantity::quantity)
                 .sum();
 
         if (MAX_TOTAL_ORDER_QUANTITY < totalOrderQuantity) {

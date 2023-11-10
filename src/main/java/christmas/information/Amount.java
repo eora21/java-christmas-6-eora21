@@ -1,4 +1,4 @@
-package christmas.amount;
+package christmas.information;
 
 import christmas.exception.fatal.NegativeAmountException;
 
