@@ -6,9 +6,9 @@ public class OrderDetail {
     private final Menu menu;
     private final OrderSize orderSize;
 
-    public OrderDetail(Menu menu, OrderSize orderSize) {
+    public OrderDetail(Menu menu, int orderSize) {
         this.menu = menu;
-        this.orderSize = orderSize;
+        this.orderSize = new OrderSize(orderSize);
     }
 
     public Menu getMenu() {
