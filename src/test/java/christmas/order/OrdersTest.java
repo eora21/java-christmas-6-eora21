@@ -3,6 +3,7 @@ package christmas.order;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import christmas.exception.non_fatal.OrderOnlyOneMenuGroupException;
 import christmas.exception.non_fatal.OverMaxTotalOrderQuantityException;
 import christmas.exception.non_fatal.illegal_order.OrderMenuDuplicateException;
 import christmas.menu.Menu;
@@ -26,6 +27,16 @@ class OrdersTest {
         assertThrows(OrderMenuDuplicateException.class, () -> new Orders(List.of(
                 new OrderDetail(Menu.CHOCOLATE_CAKE, 15),
                 new OrderDetail(Menu.CHOCOLATE_CAKE, 1))
+        ));
+    }
+
+    @Test
+    @DisplayName("음료만 주문하면 예외가 발생한다.")
+    void createOrdersOnlyDrink() {
+        assertThrows(OrderOnlyOneMenuGroupException.class, () -> new Orders(List.of(
+                new OrderDetail(Menu.ZERO_COLA, 15),
+                new OrderDetail(Menu.RED_WINE, 2),
+                new OrderDetail(Menu.CHAMPAGNE, 1))
         ));
     }
 
