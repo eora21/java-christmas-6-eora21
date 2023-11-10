@@ -1,8 +1,10 @@
 package christmas.order;
 
+import christmas.exception.non_fatal.OrderOnlyOneMenuGroupException;
 import christmas.exception.non_fatal.illegal_order.OrderMenuDuplicateException;
 import christmas.exception.non_fatal.OverMaxTotalOrderQuantityException;
 import christmas.menu.Menu;
+import christmas.menu.MenuGroup;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class Orders {
     private static final int MAX_TOTAL_ORDER_QUANTITY = 20;
+    private static final MenuGroup NOT_ONLY_MENU_GROUP = MenuGroup.DRINK;
     private final List<OrderDetail> orderDetails;
 
     public Orders(List<OrderDetail> orderDetails) {
@@ -20,6 +23,7 @@ public class Orders {
     private void validate(List<OrderDetail> orderDetails) {
         validateTotalOrderSize(orderDetails);
         validateOrderMenuDuplicate(orderDetails);
+        validateOrderMenuGroup(orderDetails);
     }
 
     private void validateTotalOrderSize(List<OrderDetail> orderDetails) {
@@ -41,6 +45,15 @@ public class Orders {
         if (orderDetails.size() != orderMenuGroup.size()) {
             throw new OrderMenuDuplicateException();
         }
+    }
+
+    private void validateOrderMenuGroup(List<OrderDetail> orderDetails) {
+        orderDetails.stream()
+                .map(OrderDetail::getMenu)
+                .map(Menu::getMenuGroup)
+                .filter(menuGroup -> menuGroup != NOT_ONLY_MENU_GROUP)
+                .findAny()
+                .orElseThrow(() -> new OrderOnlyOneMenuGroupException(NOT_ONLY_MENU_GROUP));
     }
 
     public List<OrderDetail> getOrderDetails() {
