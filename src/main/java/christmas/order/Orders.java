@@ -1,14 +1,14 @@
 package christmas.order;
 
 import christmas.exception.custom.OrderMenuDuplicateException;
-import christmas.exception.custom.OverMaxTotalOrderSizeException;
+import christmas.exception.custom.OverMaxTotalOrderQuantityException;
 import christmas.menu.Menu;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Orders {
-    private static final int MAX_TOTAL_ORDER_SIZE = 20;
+    private static final int MAX_TOTAL_ORDER_QUANTITY = 20;
     private final List<OrderDetail> orderDetails;
 
     public Orders(List<OrderDetail> orderDetails) {
@@ -22,13 +22,13 @@ public class Orders {
     }
 
     private void validateTotalOrderSize(List<OrderDetail> orderDetails) {
-        int totalOrderSize = orderDetails.stream()
+        int totalOrderQuantity = orderDetails.stream()
                 .map(OrderDetail::getOrderQuantity)
                 .mapToInt(OrderQuantity::orderQuantity)
                 .sum();
 
-        if (MAX_TOTAL_ORDER_SIZE < totalOrderSize) {
-            throw new OverMaxTotalOrderSizeException(MAX_TOTAL_ORDER_SIZE);
+        if (MAX_TOTAL_ORDER_QUANTITY < totalOrderQuantity) {
+            throw new OverMaxTotalOrderQuantityException(MAX_TOTAL_ORDER_QUANTITY);
         }
     }
 
