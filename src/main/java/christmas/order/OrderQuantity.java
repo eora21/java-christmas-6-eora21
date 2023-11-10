@@ -1,6 +1,6 @@
 package christmas.order;
 
-import christmas.exception.custom.OrderQuantityNotPositiveException;
+import christmas.exception.non_fatal.illegal_order.OrderQuantityNotPositiveException;
 
 public record OrderQuantity(int orderQuantity) {
     private static final int MIN_ORDER_QUANTITY = 1;

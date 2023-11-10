@@ -1,9 +1,10 @@
 package christmas.order;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import christmas.exception.custom.OrderMenuDuplicateException;
-import christmas.exception.custom.OverMaxTotalOrderQuantityException;
+import christmas.exception.non_fatal.OverMaxTotalOrderQuantityException;
+import christmas.exception.non_fatal.illegal_order.OrderMenuDuplicateException;
 import christmas.menu.Menu;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

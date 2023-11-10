@@ -1,7 +1,7 @@
 package christmas.order;
 
-import christmas.exception.custom.OrderMenuDuplicateException;
-import christmas.exception.custom.OverMaxTotalOrderQuantityException;
+import christmas.exception.non_fatal.illegal_order.OrderMenuDuplicateException;
+import christmas.exception.non_fatal.OverMaxTotalOrderQuantityException;
 import christmas.menu.Menu;
 import java.util.Collections;
 import java.util.List;

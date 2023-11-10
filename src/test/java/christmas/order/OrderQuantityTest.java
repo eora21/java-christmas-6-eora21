@@ -1,8 +1,9 @@
 package christmas.order;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import christmas.exception.custom.OrderQuantityNotPositiveException;
+import christmas.exception.non_fatal.illegal_order.OrderQuantityNotPositiveException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

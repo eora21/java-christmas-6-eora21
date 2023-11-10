@@ -1,9 +1,9 @@
 package christmas.menu;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import christmas.exception.custom.OrderMenuNotExistException;
+import christmas.exception.non_fatal.illegal_order.OrderMenuNotExistException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

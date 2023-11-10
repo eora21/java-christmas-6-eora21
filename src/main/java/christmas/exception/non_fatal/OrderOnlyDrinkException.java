@@ -1,4 +1,4 @@
-package christmas.exception.custom;
+package christmas.exception.non_fatal;
 
 public class OrderOnlyDrinkException extends CustomException {
     public OrderOnlyDrinkException() {
