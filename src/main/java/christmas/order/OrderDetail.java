@@ -4,18 +4,18 @@ import christmas.menu.Menu;
 
 public class OrderDetail {
     private final Menu menu;
-    private final OrderSize orderSize;
+    private final OrderQuantity orderQuantity;
 
-    public OrderDetail(Menu menu, int orderSize) {
+    public OrderDetail(Menu menu, int orderQuantity) {
         this.menu = menu;
-        this.orderSize = new OrderSize(orderSize);
+        this.orderQuantity = new OrderQuantity(orderQuantity);
     }
 
     public Menu getMenu() {
         return menu;
     }
 
-    public OrderSize getOrderSize() {
-        return orderSize;
+    public OrderQuantity getOrderQuantity() {
+        return orderQuantity;
     }
 }

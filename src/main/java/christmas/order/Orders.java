@@ -23,8 +23,8 @@ public class Orders {
 
     private void validateTotalOrderSize(List<OrderDetail> orderDetails) {
         int totalOrderSize = orderDetails.stream()
-                .map(OrderDetail::getOrderSize)
-                .mapToInt(OrderSize::orderSize)
+                .map(OrderDetail::getOrderQuantity)
+                .mapToInt(OrderQuantity::orderQuantity)
                 .sum();
 
         if (MAX_TOTAL_ORDER_SIZE < totalOrderSize) {
