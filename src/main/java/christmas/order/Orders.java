@@ -3,6 +3,7 @@ package christmas.order;
 import christmas.exception.custom.OrderMenuDuplicateException;
 import christmas.exception.custom.OverMaxTotalOrderQuantityException;
 import christmas.menu.Menu;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,5 +41,9 @@ public class Orders {
         if (orderDetails.size() != orderMenuGroup.size()) {
             throw new OrderMenuDuplicateException();
         }
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return Collections.unmodifiableList(orderDetails);
     }
 }
