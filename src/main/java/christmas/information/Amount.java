@@ -2,7 +2,7 @@ package christmas.information;
 
 import christmas.exception.fatal.NegativeAmountException;
 
-public record Amount(int amount) {
+public record Amount(int amount) implements Comparable<Amount> {
     private static final int ZERO_AMOUNT = 0;
     public Amount {
         validateAmount(amount);
@@ -20,5 +20,10 @@ public record Amount(int amount) {
 
     public Amount multiplyAmount(int multiplyValue) {
         return new Amount(this.amount * multiplyValue);
+    }
+
+    @Override
+    public int compareTo(Amount otherAmount) {
+        return Integer.compare(this.amount, otherAmount.amount);
     }
 }
