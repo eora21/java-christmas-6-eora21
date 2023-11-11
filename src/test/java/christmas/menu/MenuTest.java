@@ -3,7 +3,7 @@ package christmas.menu;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import christmas.exception.non_fatal.illegal_order.OrderMenuNotExistException;
+import christmas.exception.recoverable.MenuNotExistException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ class MenuTest {
     @Test
     @DisplayName("존재하지 않은 메뉴를 요청할 시 예외가 발생한다.")
     void findNotExistMenu() {
-        assertThrows(OrderMenuNotExistException.class, () -> Menu.findMenu("자바초코칩프라푸치노"));
+        assertThrows(MenuNotExistException.class, () -> Menu.findMenu("자바초코칩프라푸치노"));
     }
 
     @ParameterizedTest

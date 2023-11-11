@@ -6,7 +6,7 @@ import static christmas.menu.MenuGroup.DRINK;
 import static christmas.menu.MenuGroup.MAIN;
 
 import christmas.information.Amount;
-import christmas.exception.non_fatal.illegal_order.OrderMenuNotExistException;
+import christmas.exception.recoverable.MenuNotExistException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
@@ -47,7 +47,7 @@ public enum Menu {
             return MENU_BOARD.get(orderMenuName);
         }
 
-        throw new OrderMenuNotExistException();
+        throw new MenuNotExistException();
     }
 
     public String getName() {

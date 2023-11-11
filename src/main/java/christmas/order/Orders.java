@@ -1,8 +1,8 @@
 package christmas.order;
 
-import christmas.exception.non_fatal.OrderOnlyOneMenuGroupException;
-import christmas.exception.non_fatal.illegal_order.OrderMenuDuplicateException;
-import christmas.exception.non_fatal.OverMaxTotalOrderQuantityException;
+import christmas.exception.alert.OrderOnlyOneMenuGroupException;
+import christmas.exception.recoverable.OrderMenuDuplicateException;
+import christmas.exception.alert.OverMaxTotalOrderQuantityException;
 import christmas.information.Quantity;
 import christmas.menu.Menu;
 import christmas.menu.MenuGroup;

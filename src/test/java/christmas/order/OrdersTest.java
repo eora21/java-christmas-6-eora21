@@ -3,9 +3,9 @@ package christmas.order;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import christmas.exception.non_fatal.OrderOnlyOneMenuGroupException;
-import christmas.exception.non_fatal.OverMaxTotalOrderQuantityException;
-import christmas.exception.non_fatal.illegal_order.OrderMenuDuplicateException;
+import christmas.exception.alert.OrderOnlyOneMenuGroupException;
+import christmas.exception.alert.OverMaxTotalOrderQuantityException;
+import christmas.exception.recoverable.OrderMenuDuplicateException;
 import christmas.menu.Menu;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

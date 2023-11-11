@@ -1,13 +1,13 @@
 package christmas.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import christmas.exception.non_fatal.OrderOnlyOneMenuGroupException;
-import christmas.exception.non_fatal.illegal_order.OrderMenuDuplicateException;
-import christmas.exception.non_fatal.illegal_order.OrderMenuNotExistException;
-import christmas.exception.non_fatal.illegal_order.OrderQuantityNotPositiveException;
-import christmas.exception.non_fatal.OverMaxTotalOrderQuantityException;
+import christmas.exception.alert.OrderOnlyOneMenuGroupException;
+import christmas.exception.alert.OverMaxTotalOrderQuantityException;
+import christmas.exception.recoverable.MenuNotExistException;
+import christmas.exception.recoverable.OrderMenuDuplicateException;
+import christmas.exception.recoverable.QuantityNotPositiveException;
 import christmas.information.Quantity;
 import christmas.menu.Menu;
 import java.util.List;
@@ -22,7 +22,7 @@ class OrderServiceTest {
     @Test
     @DisplayName("주문 시 존재하지 않는 메뉴를 요청하면 예외가 발생한다.")
     void orderNotExistMenu() {
-        assertThrows(OrderMenuNotExistException.class, () ->
+        assertThrows(MenuNotExistException.class, () ->
                 orderService.placeAnOrder(List.of(new OrderRequest("자바초코칩프라푸치노", 1))));
     }
 
@@ -40,7 +40,7 @@ class OrderServiceTest {
     @DisplayName("주문 시 수량이 0 이하면 예외가 발생한다.")
     @ValueSource(ints = {-1, 0})
     void orderNotPositiveQuantity(int orderQuantity) {
-        assertThrows(OrderQuantityNotPositiveException.class, () ->
+        assertThrows(QuantityNotPositiveException.class, () ->
                 orderService.placeAnOrder(List.of(new OrderRequest("아이스크림", orderQuantity))));
     }
 
