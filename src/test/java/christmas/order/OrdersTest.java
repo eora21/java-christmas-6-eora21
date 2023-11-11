@@ -5,13 +5,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import christmas.exception.alert.OrderOnlyOneMenuGroupException;
 import christmas.exception.alert.OverMaxTotalOrderQuantityException;
+import christmas.exception.recoverable.OrderEmptyException;
 import christmas.exception.recoverable.OrderMenuDuplicateException;
 import christmas.menu.Menu;
+import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class OrdersTest {
+    @Test
+    @DisplayName("아무것도 주문하지 않았다면 예외가 발생한다.")
+    void createOrdersEmptyOrder() {
+        assertThrows(OrderEmptyException.class, () -> new Orders(Collections.emptyList()));
+    }
+
     @Test
     @DisplayName("주문의 총 수량이 20개를 넘으면 예외가 발생한다.")
     void createOrdersOverMaxOrderQuantity() {
