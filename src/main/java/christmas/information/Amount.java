@@ -17,4 +17,8 @@ public record Amount(int amount) {
     public Amount plusAmount(Amount otherAmount) {
         return new Amount(this.amount + otherAmount.amount);
     }
+
+    public Amount multiplyAmount(int multiplyValue) {
+        return new Amount(this.amount + multiplyValue);
+    }
 }
