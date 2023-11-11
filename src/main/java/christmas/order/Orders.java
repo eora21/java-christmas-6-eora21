@@ -1,6 +1,7 @@
 package christmas.order;
 
 import christmas.exception.alert.OrderOnlyOneMenuGroupException;
+import christmas.exception.recoverable.OrderEmptyException;
 import christmas.exception.recoverable.OrderMenuDuplicateException;
 import christmas.exception.alert.OverMaxTotalOrderQuantityException;
 import christmas.information.Quantity;
@@ -23,9 +24,16 @@ public class Orders {
     }
 
     private void validate(List<OrderDetail> orderDetails) {
+        validateEmptyOrder(orderDetails);
         validateTotalOrderSize(orderDetails);
         validateOrderMenuDuplicate(orderDetails);
         validateOrderMenuGroup(orderDetails);
+    }
+
+    private void validateEmptyOrder(List<OrderDetail> orderDetails) {
+        if (orderDetails.isEmpty()) {
+            throw new OrderEmptyException();
+        }
     }
 
     private void validateTotalOrderSize(List<OrderDetail> orderDetails) {
