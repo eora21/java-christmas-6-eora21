@@ -4,6 +4,7 @@ import christmas.exception.alert.OrderOnlyOneMenuGroupException;
 import christmas.exception.recoverable.OrderEmptyException;
 import christmas.exception.recoverable.OrderMenuDuplicateException;
 import christmas.exception.alert.OverMaxTotalOrderQuantityException;
+import christmas.information.Amount;
 import christmas.information.Quantity;
 import christmas.menu.Menu;
 import christmas.menu.MenuGroup;
@@ -64,6 +65,13 @@ public class Orders {
                 .filter(menuGroup -> menuGroup != NOT_ONLY_MENU_GROUP)
                 .findAny()
                 .orElseThrow(() -> new OrderOnlyOneMenuGroupException(NOT_ONLY_MENU_GROUP));
+    }
+
+    public Amount getOrdersTotalAmount() {
+        return orderDetails.stream()
+                .map(OrderDetail::calculateOrderDetailAmount)
+                .reduce(Amount::plusAmount)
+                .orElseGet(Amount::createZeroAmount);
     }
 
     public List<OrderDetail> getOrderDetails() {
