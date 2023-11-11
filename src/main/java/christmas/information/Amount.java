@@ -13,4 +13,8 @@ public record Amount(int amount) {
             throw new NegativeAmountException();
         }
     }
+
+    public Amount plusAmount(Amount otherAmount) {
+        return new Amount(this.amount + otherAmount.amount);
+    }
 }
