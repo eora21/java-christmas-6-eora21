@@ -1,4 +1,4 @@
-package christmas.event.information;
+package christmas.promotion.information;
 
 import christmas.information.Amount;
 
