@@ -8,6 +8,10 @@ public record Amount(int amount) implements Comparable<Amount> {
         validateAmount(amount);
     }
 
+    public static Amount createZeroAmount() {
+        return new Amount(ZERO_AMOUNT);
+    }
+
     private void validateAmount(int amount) {
         if (amount < ZERO_AMOUNT) {
             throw new NegativeAmountException();
