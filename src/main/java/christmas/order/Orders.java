@@ -6,6 +6,7 @@ import christmas.exception.alert.OverMaxTotalOrderQuantityException;
 import christmas.information.Quantity;
 import christmas.menu.Menu;
 import christmas.menu.MenuGroup;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ public class Orders {
 
     public Orders(List<OrderDetail> orderDetails) {
         validate(orderDetails);
-        this.orderDetails = orderDetails;
+        this.orderDetails = new ArrayList<>(orderDetails);
     }
 
     private void validate(List<OrderDetail> orderDetails) {
