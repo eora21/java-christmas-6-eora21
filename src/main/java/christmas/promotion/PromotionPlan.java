@@ -8,11 +8,10 @@ import christmas.promotion.discount_promotion.DayOfTheWeekPromotion;
 import christmas.promotion.discount_promotion.SpecialDayPromotion;
 import christmas.promotion.giveaway_promotion.ChristmasGiveawayPromotion;
 import christmas.promotion.information.PromotionTimeFrame;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
-public enum PromotionCalendar {
+public enum PromotionPlan {
     CHRIST_MAS_D_DAY_PROMOTION("2023-12-01", "2023-12-25",
             "크리스마스 디데이 할인",
             new ChristmasDdayPromotion()),
@@ -33,7 +32,7 @@ public enum PromotionCalendar {
     private final String eventName;
     private final Promotion promotion;
 
-    PromotionCalendar(String startDate, String endDate, String eventName, Promotion promotion) {
+    PromotionPlan(String startDate, String endDate, String eventName, Promotion promotion) {
         LocalDate promotionStartDate = LocalDate.parse(startDate);
         LocalDate promotionEndDate = LocalDate.parse(endDate);
 
