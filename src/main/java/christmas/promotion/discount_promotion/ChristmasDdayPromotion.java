@@ -9,17 +9,6 @@ import java.time.Period;
 import java.util.Optional;
 
 public class ChristmasDdayPromotion implements DiscountPromotion {
-    private ChristmasDdayPromotion() {
-    }
-
-    private static class PromotionInitializer {
-        private static final ChristmasDdayPromotion INSTANCE = new ChristmasDdayPromotion();
-    }
-
-    public static ChristmasDdayPromotion getInstance() {
-        return PromotionInitializer.INSTANCE;
-    }
-
     private static final PromotionTimeFrame PROMOTION_TIME_FRAME =
             new PromotionTimeFrame(LocalDate.parse("2023-12-01"), LocalDate.parse("2023-12-25"));
     private static final Amount PROMOTION_START_AMOUNT = new Amount(1_000);

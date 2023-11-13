@@ -9,17 +9,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public class ChristmasGiveawayPromotion implements GiveawayPromotion {
-    private ChristmasGiveawayPromotion() {
-    }
-
-    private static class PromotionInitializer {
-        private static final ChristmasGiveawayPromotion INSTANCE = new ChristmasGiveawayPromotion();
-    }
-
-    public ChristmasGiveawayPromotion getInstance() {
-        return PromotionInitializer.INSTANCE;
-    }
-
     private static final Giveaway GIVEAWAY_PROMOTION = new Giveaway(Menu.CHAMPAGNE, new Quantity(1));
     private static final Amount GIVEAWAY_MIN_AMOUNT = new Amount(120_000);
 
