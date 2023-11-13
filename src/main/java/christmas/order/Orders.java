@@ -74,6 +74,14 @@ public class Orders {
                 .orElseGet(Amount::createZeroAmount);
     }
 
+    public int getTotalMenuGroupQuantity(MenuGroup menuGroup) {
+        return orderDetails.stream()
+                .filter(orderDetail -> orderDetail.getMenu().getMenuGroup() == menuGroup)
+                .map(OrderDetail::getQuantity)
+                .mapToInt(Quantity::quantity)
+                .sum();
+    }
+
     public List<OrderDetail> getOrderDetails() {
         return Collections.unmodifiableList(orderDetails);
     }
