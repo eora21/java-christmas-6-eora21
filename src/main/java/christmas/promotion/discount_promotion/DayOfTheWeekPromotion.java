@@ -33,6 +33,15 @@ public class DayOfTheWeekPromotion implements DiscountPromotion {
     private Optional<Discount> calculateDiscount(Orders orders) {
         int totalMenuGroupQuantity = orders.getTotalMenuGroupQuantity(menuGroup);
         Amount discountAmount = UNIT_DISCOUNT_AMOUNT.multiplyAmount(totalMenuGroupQuantity);
+        return existDiscountAmount(discountAmount);
+    }
+
+    private Optional<Discount> existDiscountAmount(Amount discountAmount) {
+        Amount zeroAmount = Amount.createZeroAmount();
+        if (zeroAmount.equals(discountAmount)) {
+            return Optional.empty();
+        }
+
         return Optional.of(new Discount(discountAmount));
     }
 }
