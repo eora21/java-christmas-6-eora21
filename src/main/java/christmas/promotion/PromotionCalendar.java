@@ -6,6 +6,7 @@ import christmas.menu.MenuGroup;
 import christmas.promotion.discount_promotion.ChristmasDdayPromotion;
 import christmas.promotion.discount_promotion.DayOfTheWeekPromotion;
 import christmas.promotion.discount_promotion.SpecialDayPromotion;
+import christmas.promotion.giveaway_promotion.ChristmasGiveawayPromotion;
 import christmas.promotion.information.PromotionTimeFrame;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -23,7 +24,10 @@ public enum PromotionCalendar {
             new DayOfTheWeekPromotion(List.of(FRIDAY, SATURDAY), MenuGroup.MAIN)),
     SPECIAL_DAY_PROMOTION("2023-12-01", "2023-12-31",
             "특별 할인",
-            new SpecialDayPromotion());
+            new SpecialDayPromotion()),
+    CHRISTMAS_GIVEAWAY_PROMOTION("2023-12-01", "2023-12-31",
+            "증정 이벤트",
+            new ChristmasGiveawayPromotion());
 
     private final PromotionTimeFrame promotionTimeFrame;
     private final String eventName;
