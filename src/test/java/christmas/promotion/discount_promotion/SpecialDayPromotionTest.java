@@ -1,7 +1,6 @@
 package christmas.promotion.discount_promotion;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import christmas.information.Amount;
 import christmas.menu.Menu;
@@ -36,5 +35,12 @@ class SpecialDayPromotionTest {
         Discount discount = specialDayPromotion.calculateDiscount(localDate, orders)
                 .orElseThrow();
         assertThat(discount.getDiscountAmount()).isEqualTo(new Amount(1_000));
+    }
+
+    @Test
+    @DisplayName("특별 이벤트는 증정 이벤트를 하지 않는다.")
+    void getGiveawayEmpty() {
+        assertThat(specialDayPromotion.getGiveaway(LocalDate.parse("2023-12-25"), orders))
+                .isEmpty();
     }
 }

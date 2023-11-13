@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-@DisplayName("토요일, 일요일에 에피타이저 할인")
+@DisplayName("토요일, 일요일에 에피타이저 주문 시 개당 2_023원 할인")
 class DayOfTheWeekPromotionTest {
     Promotion dayOfTheWeekPromotion = new DayOfTheWeekPromotion(List.of(SATURDAY, SUNDAY), MenuGroup.APPETIZER);
     Orders orders = new Orders(List.of(
@@ -61,5 +61,12 @@ class DayOfTheWeekPromotionTest {
         Discount discount = dayOfTheWeekPromotion.calculateDiscount(LocalDate.parse("2023-12-16"), orders)
                 .orElseThrow();
         assertThat(discount.getDiscountAmount()).isEqualTo(new Amount((2 + 3) * 2_023));
+    }
+
+    @Test
+    @DisplayName("요일 이벤트는 증정 이벤트를 하지 않는다.")
+    void getGiveawayEmpty() {
+        assertThat(dayOfTheWeekPromotion.getGiveaway(LocalDate.parse("2023-12-16"), orders))
+                .isEmpty();
     }
 }
