@@ -38,6 +38,23 @@ public class ConsoleInputView implements InputView {
 
     @Override
     public List<OrderRequest> enterOrders() {
-        return null;
+        StringTokenizer readLineTokenizer = new StringTokenizer(readLine(), ORDER_REQUEST_DELIMITER);
+
+        List<OrderRequest> orderRequests = new ArrayList<>();
+
+        while (readLineTokenizer.hasMoreTokens()) {
+            String orderRequestToken = readLineTokenizer.nextToken();
+            OrderRequest orderRequest = convertTokenToOrderRequest(orderRequestToken);
+            orderRequests.add(orderRequest);
+        }
+
+        return orderRequests;
+    }
+
+    private OrderRequest convertTokenToOrderRequest(String token) {
+        StringTokenizer orderRequestTokenizer = new StringTokenizer(token, NAME_QUANTITY_DELIMITER);
+        String orderMenuName = orderRequestTokenizer.nextToken();
+        int orderQuantity = Integer.parseInt(orderRequestTokenizer.nextToken());
+        return new OrderRequest(orderMenuName, orderQuantity);
     }
 }
