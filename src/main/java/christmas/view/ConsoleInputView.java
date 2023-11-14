@@ -22,12 +22,12 @@ public class ConsoleInputView implements InputView {
     }
 
     @Override
-    public String requireOrderRequestsExample() {
+    public String requireOrdersExample() {
         return null;
     }
 
     @Override
-    public List<OrderRequest> enterOrderRequests() {
+    public List<OrderRequest> enterOrders() {
         return null;
     }
 }

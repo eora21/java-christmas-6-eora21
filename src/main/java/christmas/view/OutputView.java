@@ -17,7 +17,7 @@ public interface OutputView {
 
     void printPreviewBenefitsMessage(LocalDate localDate);
 
-    void requestOrderRequests(String orderRequestsExample);
+    void requestOrders(String orderRequestsExample);
 
     void printOrders(Orders orders);
 

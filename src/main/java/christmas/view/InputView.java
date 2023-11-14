@@ -8,7 +8,7 @@ public interface InputView {
 
     int enterVisitDay();
 
-    String requireOrderRequestsExample();
+    String requireOrdersExample();
 
-    List<OrderRequest> enterOrderRequests();
+    List<OrderRequest> enterOrders();
 }

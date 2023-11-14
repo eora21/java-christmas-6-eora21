@@ -28,7 +28,7 @@ public class ConsoleOutputView implements OutputView {
     }
 
     @Override
-    public void requestOrderRequests(String orderRequestsExample) {
+    public void requestOrders(String orderRequestsExample) {
 
     }
 
