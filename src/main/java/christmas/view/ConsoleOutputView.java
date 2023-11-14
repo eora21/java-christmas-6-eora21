@@ -23,12 +23,12 @@ public class ConsoleOutputView implements OutputView {
     }
 
     @Override
-    public void printPreviewBenefitsMessage(LocalDate localDate) {
-
+    public void requestOrders(String orderRequestsExample) {
+        System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. " + orderRequestsExample + ")");
     }
 
     @Override
-    public void requestOrders(String orderRequestsExample) {
+    public void printPreviewBenefitsMessage(LocalDate localDate) {
 
     }
 
