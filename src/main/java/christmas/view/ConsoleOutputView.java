@@ -18,7 +18,7 @@ public class ConsoleOutputView implements OutputView {
 
     @Override
     public void requestVisitDay(Month month, String visitDayForm) {
-
+        System.out.println(month.getValue() + "월 중 식당 예상 방문 날짜는 언제인가요? (" + visitDayForm + ")");
     }
 
     @Override
