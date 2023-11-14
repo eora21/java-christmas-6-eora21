@@ -2,7 +2,7 @@ package christmas.promotion.information;
 
 import christmas.information.Amount;
 
-public class Benefit {
+public class Benefit implements Comparable<Benefit> {
     private final Amount benefitAmount;
 
     public Benefit(int benefitAmount) {
@@ -21,5 +21,10 @@ public class Benefit {
 
     public Amount getBenefitAmount() {
         return benefitAmount;
+    }
+
+    @Override
+    public int compareTo(Benefit o) {
+        return benefitAmount.compareTo(o.benefitAmount);
     }
 }
