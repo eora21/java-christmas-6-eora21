@@ -14,4 +14,9 @@ public class View {
     public void showGreeting(Month month) {
         outputView.printGreeting(month);
     }
+
+    public int requireVisitDay(Month month) {
+        outputView.requestVisitDay(month, inputView.requireVisitDayForm());
+        return inputView.enterVisitDay();
+    }
 }
