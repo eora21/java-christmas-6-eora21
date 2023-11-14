@@ -20,12 +20,6 @@ public class OrderDetail {
         return amount.multiplyAmount(quantity.quantity());
     }
 
-    public Amount calculateOrderDetailDiscountAmount(Map<Menu, Discount> menuDiscount) {
-        Amount amount = calculateOrderDetailAmount();
-        return menuDiscount.getOrDefault(menu, new Discount(Amount.createZeroAmount()))
-                .calculateDiscount(amount);
-    }
-
     public Menu getMenu() {
         return menu;
     }
