@@ -2,19 +2,25 @@ package christmas.promotion.information;
 
 import christmas.information.Amount;
 
-public final class Discount extends Benefit {
-    private final Amount amount;
+public final class Discount implements Beneficial {
+    private Amount discountAmount;
 
-    public Discount(Amount amount) {
-        this.amount = amount;
+    public Discount(Amount discountAmount) {
+        this.discountAmount = discountAmount;
     }
 
-    @Override
-    public Amount getBenefitAmount() {
-        return amount;
+    public static Discount sum(Discount firstDiscount, Discount secondDiscount) {
+        Amount firstDiscountAmount = firstDiscount.getDiscountAmount();
+        Amount secondDiscountAmount = secondDiscount.getDiscountAmount();
+        return new Discount(firstDiscountAmount.plusAmount(secondDiscountAmount));
     }
 
     public Amount getDiscountAmount() {
-        return amount;
+        return discountAmount;
+    }
+
+    @Override
+    public Benefit convertToBenefit() {
+        return new Benefit(getDiscountAmount());
     }
 }
