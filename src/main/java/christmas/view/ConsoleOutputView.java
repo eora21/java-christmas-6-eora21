@@ -11,6 +11,7 @@ import java.time.Month;
 import java.util.List;
 
 public class ConsoleOutputView implements OutputView {
+    private static final String ERROR = "[ERROR] ";
     @Override
     public void printGreeting(Month month) {
         System.out.println("안녕하세요! 우테코 식당 " + month.getValue() + " 월 이벤트 플래너입니다.");
@@ -64,5 +65,10 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printBadge(PromotionBadge badge) {
 
+    }
+
+    @Override
+    public void printExceptionMessage(String message) {
+        System.out.println(ERROR + message);
     }
 }
