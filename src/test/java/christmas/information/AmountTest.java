@@ -1,5 +1,6 @@
 package christmas.information;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -21,5 +22,29 @@ class AmountTest {
     @ValueSource(ints = {0, 1})
     void createAmount(int amount) {
         assertDoesNotThrow(() -> new Amount(amount));
+    }
+
+    @Test
+    @DisplayName("금액을 더한다.")
+    void plusAmount() {
+        assertThat(new Amount(100).plusAmount(new Amount(200))).isEqualTo(new Amount(300));
+    }
+
+    @Test
+    @DisplayName("금액을 곱한다.")
+    void multiplyAmount() {
+        assertThat(new Amount(200).multiplyAmount(11)).isEqualTo(new Amount(2_200));
+    }
+
+    @Test
+    @DisplayName("금액을 차감한다.")
+    void minusAmount() {
+        assertThat(new Amount(200).minusAmount(new Amount(50))).isEqualTo(new Amount(150));
+    }
+
+    @Test
+    @DisplayName("원래 금액보다 많은 금액을 차감 시 0원이 된다.")
+    void minusOverAmount() {
+        assertThat(new Amount(200).minusAmount(new Amount(500))).isEqualTo(Amount.createZeroAmount());
     }
 }
