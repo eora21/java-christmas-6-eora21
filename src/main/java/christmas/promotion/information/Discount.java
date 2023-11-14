@@ -3,7 +3,11 @@ package christmas.promotion.information;
 import christmas.information.Amount;
 
 public final class Discount implements Beneficial {
-    private Amount discountAmount;
+    private final Amount discountAmount;
+
+    public Discount(int discountAmount) {
+        this.discountAmount = new Amount(discountAmount);
+    }
 
     public Discount(Amount discountAmount) {
         this.discountAmount = discountAmount;
