@@ -3,6 +3,8 @@ package christmas.order;
 import christmas.information.Amount;
 import christmas.information.Quantity;
 import christmas.menu.Menu;
+import christmas.promotion.information.Discount;
+import java.util.Map;
 
 public class OrderDetail {
     private final Menu menu;
@@ -16,6 +18,12 @@ public class OrderDetail {
     public Amount calculateOrderDetailAmount() {
         Amount amount = menu.getAmount();
         return amount.multiplyAmount(quantity.quantity());
+    }
+
+    public Amount calculateOrderDetailDiscountAmount(Map<Menu, Discount> menuDiscount) {
+        Amount amount = calculateOrderDetailAmount();
+        return menuDiscount.getOrDefault(menu, new Discount(Amount.createZeroAmount()))
+                .calculateDiscount(amount);
     }
 
     public Menu getMenu() {
