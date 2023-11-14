@@ -32,4 +32,6 @@ public interface OutputView {
     void printAfterDiscountAmount(Amount afterDiscountAmount);
 
     void printBadge(PromotionBadge badge);
+
+    void printExceptionMessage(String message);
 }
