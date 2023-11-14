@@ -5,6 +5,10 @@ import christmas.information.Amount;
 public class Benefit {
     private final Amount benefitAmount;
 
+    public Benefit(int benefitAmount) {
+        this.benefitAmount = new Amount(benefitAmount);
+    }
+
     public Benefit(Amount benefitAmount) {
         this.benefitAmount = benefitAmount;
     }
