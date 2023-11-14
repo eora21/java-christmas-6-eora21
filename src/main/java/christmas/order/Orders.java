@@ -8,9 +8,11 @@ import christmas.information.Amount;
 import christmas.information.Quantity;
 import christmas.menu.Menu;
 import christmas.menu.MenuGroup;
+import christmas.promotion.information.Discount;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -79,6 +81,16 @@ public class Orders {
                 .filter(orderDetail -> orderDetail.getMenu().getMenuGroup() == menuGroup)
                 .toList();
     }
+
+    public Amount calculateAllDiscount(Map<Menu, Discount> menuDiscount, Discount totalDiscount) {
+        Amount amount = orderDetails.stream()
+                .map(orderDetail -> orderDetail.calculateOrderDetailDiscountAmount(menuDiscount))
+                .reduce(Amount::plusAmount)
+                .orElseGet(Amount::createZeroAmount);
+
+        return totalDiscount.calculateDiscount(amount);
+    }
+
 
     public List<OrderDetail> getOrderDetails() {
         return Collections.unmodifiableList(orderDetails);
