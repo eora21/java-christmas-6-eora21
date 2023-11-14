@@ -1,14 +1,15 @@
 package christmas.promotion.discount_promotion;
 
-import christmas.promotion.information.Discount;
 import christmas.information.Amount;
 import christmas.order.Orders;
+import christmas.promotion.Promotion;
+import christmas.promotion.information.Discount;
 import christmas.promotion.information.PromotionTimeFrame;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Optional;
 
-public class ChristmasDdayPromotion implements DiscountPromotion {
+public class ChristmasDdayPromotion implements Promotion {
     private static final PromotionTimeFrame PROMOTION_TIME_FRAME =
             new PromotionTimeFrame(LocalDate.parse("2023-12-01"), LocalDate.parse("2023-12-25"));
     private static final Amount PROMOTION_START_AMOUNT = new Amount(1_000);
@@ -16,7 +17,7 @@ public class ChristmasDdayPromotion implements DiscountPromotion {
     private static final Amount PROMOTION_PLUS_EACH_DAY_AMOUNT = new Amount(100);
 
     @Override
-    public Optional<Discount> calculateDiscount(LocalDate localDate, Orders orders) {
+    public Optional<Discount> calculateTotalDiscount(LocalDate localDate, Orders orders) {
         if (PROMOTION_TIME_FRAME.isDateInRange(localDate)) {
             return calculateDiscount(localDate);
         }
