@@ -11,62 +11,78 @@ import java.time.Month;
 import java.util.List;
 
 public class ConsoleOutputView implements OutputView {
+    private static final String GREETING = "안녕하세요! 우테코 식당 %d월 이벤트 플래너입니다.\n";
+    private static final String REQUEST_VISIT_DAY = "%d월 중 식당 예상 방문 날짜는 언제인가요? (%s)\n";
+    private static final String REQUEST_ORDERS = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. %s)\n";
+    private static final String PREVIEW_BENEFITS = "%d월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n\n";
+    private static final String ORDERS = "<주문 메뉴>";
+    private static final String BEFORE_DISCOUNT_AMOUNT = "<할인 전 총주문 금액>";
+    private static final String GIVEAWAYS = "<증정 메뉴>";
+    private static final String PROMOTION_BENEFIT_INFO = "<혜택 내역>";
+    private static final String TOTAL_BENEFIT = "<총혜택 금액>";
+    private static final String AFTER_DISCOUNT_AMOUNT = "<할인 후 예상 결제 금액>";
+    private static final String BADGE = "<%d월 이벤트 배지>\n";
     private static final String ERROR = "[ERROR] ";
     @Override
     public void printGreeting(Month month) {
-        System.out.println("안녕하세요! 우테코 식당 " + month.getValue() + " 월 이벤트 플래너입니다.");
+        System.out.printf(GREETING, month.getValue());
     }
 
     @Override
     public void requestVisitDay(Month month, String visitDayForm) {
-        System.out.println(month.getValue() + "월 중 식당 예상 방문 날짜는 언제인가요? (" + visitDayForm + ")");
+        System.out.printf(REQUEST_VISIT_DAY, month.getValue(), visitDayForm);
     }
 
     @Override
     public void requestOrders(String orderRequestsExample) {
-        System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. " + orderRequestsExample + ")");
+        System.out.printf(REQUEST_ORDERS, orderRequestsExample);
     }
 
     @Override
     public void printPreviewBenefitsMessage(LocalDate localDate) {
-        System.out.println(localDate.getMonth().getValue() + "월" + localDate.getDayOfMonth() +
-                "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
-        System.out.println();
+        System.out.printf(PREVIEW_BENEFITS, localDate.getMonth().getValue(), localDate.getDayOfMonth());
     }
 
     @Override
     public void printOrders(Orders orders) {
-
+        System.out.println(ORDERS);
+        System.out.println();
     }
 
     @Override
     public void printBeforeDiscountAmount(Amount beforeDiscountAmount) {
-
+        System.out.println(BEFORE_DISCOUNT_AMOUNT);
+        System.out.println();
     }
 
     @Override
     public void printGiveaways(List<Giveaway> giveaways) {
-
+        System.out.println(GIVEAWAYS);
+        System.out.println();
     }
 
     @Override
     public void printPromotionBenefitInfo(PromotionBenefitInfo promotionBenefitInfo) {
-
+        System.out.println(PROMOTION_BENEFIT_INFO);
+        System.out.println();
     }
 
     @Override
     public void printTotalBenefit(Benefit totalBenefit) {
-
+        System.out.println(TOTAL_BENEFIT);
+        System.out.println();
     }
 
     @Override
     public void printAfterDiscountAmount(Amount afterDiscountAmount) {
-
+        System.out.println(AFTER_DISCOUNT_AMOUNT);
+        System.out.println();
     }
 
     @Override
-    public void printBadge(PromotionBadge badge) {
-
+    public void printBadge(PromotionBadge badge, Month month) {
+        System.out.printf(BADGE, month.getValue());
+        System.out.println();
     }
 
     @Override
