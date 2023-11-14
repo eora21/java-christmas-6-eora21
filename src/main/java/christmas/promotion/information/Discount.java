@@ -15,6 +15,10 @@ public final class Discount implements Beneficial {
         return new Discount(firstDiscountAmount.plusAmount(secondDiscountAmount));
     }
 
+    public Amount calculateDiscount(Amount amount) {
+        return amount.minusAmount(discountAmount);
+    }
+
     public Amount getDiscountAmount() {
         return discountAmount;
     }
