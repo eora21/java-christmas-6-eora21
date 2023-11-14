@@ -13,6 +13,7 @@ import christmas.promotion.Promotion;
 import christmas.promotion.information.Discount;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,15 +31,15 @@ class DayOfTheWeekPromotionTest {
     @ParameterizedTest(name = "{1}에 주문할 시 할인되지 않는다.")
     @CsvSource({"2023-12-11, 월요일", "2023-12-12, 화요일", "2023-12-13, 수요일", "2023-12-14, 목요일", "2023-12-15, 금요일"})
     void orderOutOfPromotionDayOfWeek(LocalDate localDate, String dayOfTheWeek) {
-        Optional<Discount> discountOptional = dayOfTheWeekPromotion.calculateDiscount(localDate, orders);
-        assertThat(discountOptional).isEmpty();
+        Map<Menu, Discount> menuDiscount = dayOfTheWeekPromotion.calculateMenuDiscount(localDate, orders);
+        assertThat(menuDiscount).isEmpty();
     }
 
     @ParameterizedTest(name = "{1}에 주문할 시 할인된다.")
     @CsvSource({"2023-12-16, 토요일", "2023-12-17, 일요일"})
     void orderInPromotionDayOfWeek(LocalDate localDate, String dayOfTheWeek) {
-        Optional<Discount> discountOptional = dayOfTheWeekPromotion.calculateDiscount(localDate, orders);
-        assertThat(discountOptional).isNotEmpty();
+        Map<Menu, Discount> menuDiscount = dayOfTheWeekPromotion.calculateMenuDiscount(localDate, orders);
+        assertThat(menuDiscount).containsKeys(Menu.TAPAS, Menu.MUSHROOM_SOUP);
     }
 
     @Test
@@ -49,18 +50,19 @@ class DayOfTheWeekPromotionTest {
                 new OrderDetail(Menu.CHAMPAGNE, 2),
                 new OrderDetail(Menu.BARBECUE_RIBS, 3)));
 
-        Optional<Discount> discountOptional =
-                dayOfTheWeekPromotion.calculateDiscount(LocalDate.parse("2023-12-16"), ordersNotIncludeAppetizer);
+        Map<Menu, Discount> menuDiscount = dayOfTheWeekPromotion.calculateMenuDiscount(
+                LocalDate.parse("2023-12-16"), ordersNotIncludeAppetizer);
 
-        assertThat(discountOptional).isEmpty();
+        assertThat(menuDiscount).isEmpty();
     }
 
     @Test
-    @DisplayName("할인 금액은 일치하는 에피타이저 총 주문량(2 + 3) * 할인 가격(2,023)이다.")
+    @DisplayName("할인 금액은 일치하는 에피타이저 총 주문량 * 할인 가격(2,023)이다.")
     void calculateDiscountAmount() {
-        Discount discount = dayOfTheWeekPromotion.calculateDiscount(LocalDate.parse("2023-12-16"), orders)
-                .orElseThrow();
-        assertThat(discount.getDiscountAmount()).isEqualTo(new Amount((2 + 3) * 2_023));
+        Map<Menu, Discount> menuDiscount = dayOfTheWeekPromotion.calculateMenuDiscount(
+                LocalDate.parse("2023-12-16"), orders);
+        assertThat(menuDiscount.get(Menu.TAPAS).getDiscountAmount()).isEqualTo(new Amount(2 * 2_023));
+        assertThat(menuDiscount.get(Menu.MUSHROOM_SOUP).getDiscountAmount()).isEqualTo(new Amount(3 * 2_023));
     }
 
     @Test
