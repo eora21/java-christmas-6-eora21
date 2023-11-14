@@ -26,6 +26,10 @@ public record Amount(int amount) implements Comparable<Amount> {
         return new Amount(this.amount * multiplyValue);
     }
 
+    public Amount minusAmount(Amount otherAmount) {
+        return new Amount(Math.max(ZERO_AMOUNT, amount - otherAmount.amount));
+    }
+
     @Override
     public int compareTo(Amount otherAmount) {
         return Integer.compare(this.amount, otherAmount.amount);
