@@ -19,4 +19,8 @@ public class View {
         outputView.requestVisitDay(month, inputView.requireVisitDayForm());
         return inputView.enterVisitDay();
     }
+
+    public void showExceptionMessage(String message) {
+        outputView.printExceptionMessage(message);
+    }
 }
