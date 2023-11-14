@@ -1,14 +1,22 @@
 package christmas.promotion;
 
-import static java.time.DayOfWeek.*;
+import static java.time.DayOfWeek.FRIDAY;
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.DayOfWeek.THURSDAY;
+import static java.time.DayOfWeek.TUESDAY;
+import static java.time.DayOfWeek.WEDNESDAY;
 
 import christmas.menu.MenuGroup;
+import christmas.order.Orders;
 import christmas.promotion.discount_promotion.ChristmasDdayPromotion;
 import christmas.promotion.discount_promotion.DayOfTheWeekPromotion;
 import christmas.promotion.discount_promotion.SpecialDayPromotion;
 import christmas.promotion.giveaway_promotion.ChristmasGiveawayPromotion;
 import christmas.promotion.information.PromotionTimeFrame;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 public enum PromotionPlan {
@@ -39,6 +47,18 @@ public enum PromotionPlan {
         this.promotionTimeFrame = new PromotionTimeFrame(promotionStartDate, promotionEndDate);
         this.eventName = eventName;
         this.promotion = promotion;
+    }
+
+    public static promotionStatistics getPromotionStatistics(LocalDate localDate, Orders orders) {
+        List<PromotionPlan> promotionPlans = Arrays.stream(PromotionPlan.values())
+                .filter(promotionPlan -> promotionPlan.isDateInPromotionRange(localDate))
+                .toList();
+
+        return new promotionStatistics(promotionPlans, localDate, orders);
+    }
+
+    private boolean isDateInPromotionRange(LocalDate localDate) {
+        return promotionTimeFrame.isDateInRange(localDate);
     }
 
     public Promotion getPromotion() {
