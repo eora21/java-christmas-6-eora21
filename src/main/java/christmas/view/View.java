@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.order.OrderRequest;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
@@ -29,5 +30,9 @@ public class View {
     public List<OrderRequest> requireOrders() {
         outputView.requestOrders(inputView.requireOrdersExample());
         return inputView.enterOrders();
+    }
+
+    public void showPreviewBenefitsMessage(LocalDate localDate) {
+        outputView.printPreviewBenefitsMessage(localDate);
     }
 }
