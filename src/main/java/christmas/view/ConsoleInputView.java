@@ -10,6 +10,8 @@ import java.util.StringTokenizer;
 
 public class ConsoleInputView implements InputView {
     private static final String VISIT_DAY_FORM = "숫자만 입력해 주세요!";
+    private static final String ORDER_REQUEST_DELIMITER = ",";
+    private static final String NAME_QUANTITY_DELIMITER = "-";
 
     @Override
     public String requireVisitDayForm() {
@@ -23,7 +25,15 @@ public class ConsoleInputView implements InputView {
 
     @Override
     public String requireOrdersExample() {
-        return null;
+        return new StringJoiner(ORDER_REQUEST_DELIMITER)
+                .add(createExampleOrderRequest("해산물파스타", 2))
+                .add(createExampleOrderRequest("레드와인", 1))
+                .add(createExampleOrderRequest("초코케이크", 1))
+                .toString();
+    }
+
+    private String createExampleOrderRequest(String name, int quantity) {
+        return name + NAME_QUANTITY_DELIMITER + quantity;
     }
 
     @Override
