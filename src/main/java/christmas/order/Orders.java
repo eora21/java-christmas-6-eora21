@@ -27,6 +27,13 @@ public class Orders {
         this.orderDetails = new ArrayList<>(orderDetails);
     }
 
+    public static Orders newInstance(List<OrderRequest> orderRequests) {
+        List<OrderDetail> convertOrderDetails = orderRequests.stream()
+                .map(request -> new OrderDetail(Menu.findMenu(request.orderMenuName()), request.orderQuantity()))
+                .toList();
+        return new Orders(convertOrderDetails);
+    }
+
     private void validate(List<OrderDetail> orderDetails) {
         validateEmptyOrder(orderDetails);
         validateTotalOrderSize(orderDetails);
