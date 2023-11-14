@@ -43,7 +43,7 @@ public class ConsoleInputView implements InputView {
         List<OrderRequest> orderRequests = new ArrayList<>();
 
         while (readLineTokenizer.hasMoreTokens()) {
-            String orderRequestToken = readLineTokenizer.nextToken();
+            String orderRequestToken = readLineTokenizer.nextToken().trim();
             OrderRequest orderRequest = convertTokenToOrderRequest(orderRequestToken);
             orderRequests.add(orderRequest);
         }
@@ -53,8 +53,8 @@ public class ConsoleInputView implements InputView {
 
     private OrderRequest convertTokenToOrderRequest(String token) {
         StringTokenizer orderRequestTokenizer = new StringTokenizer(token, NAME_QUANTITY_DELIMITER);
-        String orderMenuName = orderRequestTokenizer.nextToken();
-        int orderQuantity = Integer.parseInt(orderRequestTokenizer.nextToken());
+        String orderMenuName = orderRequestTokenizer.nextToken().trim();
+        int orderQuantity = Integer.parseInt(orderRequestTokenizer.nextToken().trim());
         return new OrderRequest(orderMenuName, orderQuantity);
     }
 }
