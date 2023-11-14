@@ -1,9 +1,9 @@
 package christmas.order;
 
 import christmas.exception.alert.OrderOnlyOneMenuGroupException;
+import christmas.exception.alert.OverMaxTotalOrderQuantityException;
 import christmas.exception.recoverable.OrderEmptyException;
 import christmas.exception.recoverable.OrderMenuDuplicateException;
-import christmas.exception.alert.OverMaxTotalOrderQuantityException;
 import christmas.information.Amount;
 import christmas.information.Quantity;
 import christmas.menu.Menu;
@@ -74,12 +74,10 @@ public class Orders {
                 .orElseGet(Amount::createZeroAmount);
     }
 
-    public int getTotalMenuGroupQuantity(MenuGroup menuGroup) {
+    public List<OrderDetail> filterOrderDetailUsingMenuGroup(MenuGroup menuGroup) {
         return orderDetails.stream()
                 .filter(orderDetail -> orderDetail.getMenu().getMenuGroup() == menuGroup)
-                .map(OrderDetail::getQuantity)
-                .mapToInt(Quantity::quantity)
-                .sum();
+                .toList();
     }
 
     public List<OrderDetail> getOrderDetails() {
