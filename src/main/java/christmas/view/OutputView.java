@@ -6,14 +6,18 @@ import christmas.promotion.PromotionBadge;
 import christmas.promotion.information.Benefit;
 import christmas.promotion.information.Giveaway;
 import christmas.promotion.information.PromotionBenefitInfo;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 public interface OutputView {
-    void printGreeting();
+    void printGreeting(Month month);
 
-    void requestVisitDay();
+    void requestVisitDay(Month month, String visitDayForm);
 
-    void requestOrderRequests();
+    void printPreviewBenefitsMessage(LocalDate localDate);
+
+    void requestOrderRequests(String orderRequestsExample);
 
     void printOrders(Orders orders);
 
