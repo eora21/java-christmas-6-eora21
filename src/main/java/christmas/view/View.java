@@ -1,6 +1,8 @@
 package christmas.view;
 
+import christmas.order.OrderRequest;
 import java.time.Month;
+import java.util.List;
 
 public class View {
     private final InputView inputView;
@@ -22,5 +24,10 @@ public class View {
 
     public void showExceptionMessage(String message) {
         outputView.printExceptionMessage(message);
+    }
+
+    public List<OrderRequest> requireOrders() {
+        outputView.requestOrders(inputView.requireOrdersExample());
+        return inputView.enterOrders();
     }
 }
