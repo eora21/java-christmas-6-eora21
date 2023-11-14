@@ -4,11 +4,12 @@ import christmas.information.Amount;
 import christmas.information.Quantity;
 import christmas.menu.Menu;
 import christmas.order.Orders;
+import christmas.promotion.Promotion;
 import christmas.promotion.information.Giveaway;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class ChristmasGiveawayPromotion implements GiveawayPromotion {
+public class ChristmasGiveawayPromotion implements Promotion {
     private static final Giveaway GIVEAWAY_PROMOTION = new Giveaway(Menu.CHAMPAGNE, new Quantity(1));
     private static final Amount GIVEAWAY_MIN_AMOUNT = new Amount(120_000);
 
