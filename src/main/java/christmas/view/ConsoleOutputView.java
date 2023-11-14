@@ -1,6 +1,9 @@
 package christmas.view;
 
 import christmas.information.Amount;
+import christmas.information.Quantity;
+import christmas.menu.Menu;
+import christmas.order.OrderDetail;
 import christmas.order.Orders;
 import christmas.promotion.PromotionBadge;
 import christmas.promotion.information.Benefit;
@@ -16,6 +19,7 @@ public class ConsoleOutputView implements OutputView {
     private static final String REQUEST_ORDERS = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. %s)\n";
     private static final String PREVIEW_BENEFITS = "%d월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n\n";
     private static final String ORDERS = "<주문 메뉴>";
+    private static final String ORDER_DETAIL = "%s %d개\n";
     private static final String BEFORE_DISCOUNT_AMOUNT = "<할인 전 총주문 금액>";
     private static final String GIVEAWAYS = "<증정 메뉴>";
     private static final String PROMOTION_BENEFIT_INFO = "<혜택 내역>";
@@ -23,6 +27,7 @@ public class ConsoleOutputView implements OutputView {
     private static final String AFTER_DISCOUNT_AMOUNT = "<할인 후 예상 결제 금액>";
     private static final String BADGE = "<%d월 이벤트 배지>\n";
     private static final String ERROR = "[ERROR] ";
+
     @Override
     public void printGreeting(Month month) {
         System.out.printf(GREETING, month.getValue());
@@ -46,7 +51,15 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printOrders(Orders orders) {
         System.out.println(ORDERS);
+        orders.getOrderDetails()
+                .forEach(this::printOrderDetail);
         System.out.println();
+    }
+
+    private void printOrderDetail(OrderDetail orderDetail) {
+        Menu menu = orderDetail.getMenu();
+        Quantity quantity = orderDetail.getQuantity();
+        System.out.printf(ORDER_DETAIL, menu.getName(), quantity.quantity());
     }
 
     @Override
