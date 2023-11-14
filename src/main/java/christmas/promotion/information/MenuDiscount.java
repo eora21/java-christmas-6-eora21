@@ -16,4 +16,10 @@ public class MenuDiscount {
         Discount discount = menuDiscount.getOrDefault(orderDetail.getMenu(), new Discount(Amount.createZeroAmount()));
         return discount.calculateDiscount(orderDetail.calculateOrderDetailAmount());
     }
+
+    public MenuDiscount mergeMenuDiscount(MenuDiscount otherMenuDiscount) {
+        otherMenuDiscount.menuDiscount
+                .forEach((menu, discount) -> menuDiscount.merge(menu, discount, Discount::sum));
+        return this;
+    }
 }
