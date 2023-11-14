@@ -24,7 +24,7 @@ class SpecialDayPromotionTest {
     @DisplayName("지정된 날짜가 아니라면 할인받지 못 한다.")
     void discountEmptyWhenNormalDay() {
         Optional<Discount> discountOptional =
-                specialDayPromotion.calculateDiscount(LocalDate.parse("2023-12-26"), orders);
+                specialDayPromotion.calculateTotalDiscount(LocalDate.parse("2023-12-26"), orders);
         assertThat(discountOptional).isEmpty();
     }
 
@@ -32,7 +32,7 @@ class SpecialDayPromotionTest {
     @DisplayName("지정된 날짜일 경우 할인받는다.")
     @CsvSource({"2023-12-03", "2023-12-10", "2023-12-17", "2023-12-24", "2023-12-25", "2023-12-31"})
     void discountWhenSpecialDay(LocalDate localDate) {
-        Discount discount = specialDayPromotion.calculateDiscount(localDate, orders)
+        Discount discount = specialDayPromotion.calculateTotalDiscount(localDate, orders)
                 .orElseThrow();
         assertThat(discount.getDiscountAmount()).isEqualTo(new Amount(1_000));
     }

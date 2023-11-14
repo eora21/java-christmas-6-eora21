@@ -50,7 +50,7 @@ class ChristmasGiveawayPromotionTest {
     @DisplayName("증정 이벤트는 할인 이벤트를 하지 않는다.")
     void getGiveawayEmpty() {
         Orders mockOrders = mock(Orders.class);
-        assertThat(christmasGiveawayPromotion.calculateDiscount(LocalDate.parse("2023-12-25"), mockOrders))
+        assertThat(christmasGiveawayPromotion.calculateTotalDiscount(LocalDate.parse("2023-12-25"), mockOrders))
                 .isEmpty();
     }
 }

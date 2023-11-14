@@ -27,7 +27,7 @@ class ChristmasDdayPromotionTest {
     @DisplayName("12월 1일 이전, 12월 25일 이후에 이벤트가 동작될 시 빈 옵셔널을 반환한다.")
     @CsvSource(value = {"2023-11-30", "2023-12-26"})
     void calculateDiscountAmountNotInEventDuration(LocalDate localDate) {
-        assertThat(christmasDdayPromotion.calculateDiscount(localDate, orders))
+        assertThat(christmasDdayPromotion.calculateTotalDiscount(localDate, orders))
                 .isEmpty();
     }
 
@@ -42,7 +42,7 @@ class ChristmasDdayPromotionTest {
     @DisplayName("12월 1일의 할인 금액은 1,000원이며, 하루가 지날 때마다 할인 금액이 100원씩 올라간다.")
     @MethodSource("localDateAndExpectDiscountAmountValue")
     void calculateDiscountAmount(LocalDate localDate, int expectDiscountAmountValue) {
-        Optional<Discount> discountOptional = christmasDdayPromotion.calculateDiscount(localDate, orders);
+        Optional<Discount> discountOptional = christmasDdayPromotion.calculateTotalDiscount(localDate, orders);
         Discount discount = discountOptional.orElseThrow();
         assertThat(discount.getDiscountAmount()).isEqualTo(new Amount(expectDiscountAmountValue));
     }
