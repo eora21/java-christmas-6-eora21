@@ -29,7 +29,9 @@ public class ConsoleOutputView implements OutputView {
 
     @Override
     public void printPreviewBenefitsMessage(LocalDate localDate) {
-
+        System.out.println(localDate.getMonth().getValue() + "월" + localDate.getDayOfMonth() +
+                "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        System.out.println();
     }
 
     @Override
