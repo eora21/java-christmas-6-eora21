@@ -18,7 +18,7 @@ public class ConsoleInputView implements InputView {
 
     @Override
     public int enterVisitDay() {
-        return 0;
+        return Integer.parseInt(readLine());
     }
 
     @Override
