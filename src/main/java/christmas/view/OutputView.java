@@ -31,7 +31,7 @@ public interface OutputView {
 
     void printAfterDiscountAmount(Amount afterDiscountAmount);
 
-    void printBadge(PromotionBadge badge);
+    void printBadge(PromotionBadge badge, Month month);
 
     void printExceptionMessage(String message);
 }
