@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.order.OrderRequest;
+import christmas.order.Orders;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -34,5 +35,9 @@ public class View {
 
     public void showPreviewBenefitsMessage(LocalDate localDate) {
         outputView.printPreviewBenefitsMessage(localDate);
+    }
+
+    public void showOrders(Orders orders) {
+        outputView.printOrders(orders);
     }
 }
