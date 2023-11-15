@@ -70,4 +70,8 @@ public class View {
     public void showBadge(PromotionBadge badge, Month month) {
         outputView.printBadge(badge, month);
     }
+
+    public void showNonPromotion(Amount minPromotionAmount) {
+        outputView.printNonPromotion(minPromotionAmount);
+    }
 }
