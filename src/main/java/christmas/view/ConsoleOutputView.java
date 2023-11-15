@@ -19,7 +19,7 @@ public class ConsoleOutputView implements OutputView {
     private static final String REQUEST_ORDERS = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. %s)\n";
     private static final String PREVIEW_BENEFITS = "%d월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n\n";
     private static final String PRINT_ORDERS = "<주문 메뉴>";
-    private static final String ORDER_DETAIL = "%s %d개\n";
+    private static final String MENU_QUANTITY = "%s %d개\n";
     private static final String PRINT_BEFORE_DISCOUNT_AMOUNT = "<할인 전 총주문 금액>";
     private static final String AMOUNT = "%,d원\n";
     private static final String PRINT_GIVEAWAYS = "<증정 메뉴>";
@@ -60,7 +60,7 @@ public class ConsoleOutputView implements OutputView {
     private void printOrderDetail(OrderDetail orderDetail) {
         Menu menu = orderDetail.getMenu();
         Quantity quantity = orderDetail.getQuantity();
-        System.out.printf(ORDER_DETAIL, menu.getName(), quantity.quantity());
+        System.out.printf(MENU_QUANTITY, menu.getName(), quantity.quantity());
     }
 
     @Override
@@ -74,6 +74,12 @@ public class ConsoleOutputView implements OutputView {
     public void printGiveaways(List<Giveaway> giveaways) {
         System.out.println(PRINT_GIVEAWAYS);
         System.out.println();
+    }
+
+    private void printGiveaway(Giveaway giveaway) {
+        Menu menu = giveaway.getMenu();
+        Quantity quantity = giveaway.getQuantity();
+        System.out.printf(MENU_QUANTITY, menu.getName(), quantity.quantity());
     }
 
     @Override
