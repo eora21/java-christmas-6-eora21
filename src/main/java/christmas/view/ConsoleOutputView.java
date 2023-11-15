@@ -73,6 +73,7 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printGiveaways(List<Giveaway> giveaways) {
         System.out.println(PRINT_GIVEAWAYS);
+        giveaways.forEach(this::printGiveaway);
         System.out.println();
     }
 
