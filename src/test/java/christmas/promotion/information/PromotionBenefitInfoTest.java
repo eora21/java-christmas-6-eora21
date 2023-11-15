@@ -13,9 +13,9 @@ class PromotionBenefitInfoTest {
     @DisplayName("모든 프로모션 혜택의 총 합을 계산한다.")
     void calculateTotalBenefit() {
         PromotionBenefitInfo promotionBenefitInfo = new PromotionBenefitInfo(Map.of(
-                PromotionPlan.WEEKDAY_PROMOTION.getPromotion(), new Benefit(new Amount(1_000)),
-                PromotionPlan.WEEKEND_PROMOTION.getPromotion(), new Benefit(new Amount(2_000)),
-                PromotionPlan.CHRISTMAS_GIVEAWAY_PROMOTION.getPromotion(), new Benefit(new Amount(3_000))
+                PromotionPlan.WEEKDAY_PROMOTION, new Benefit(1_000),
+                PromotionPlan.WEEKEND_PROMOTION, new Benefit(2_000),
+                PromotionPlan.CHRISTMAS_GIVEAWAY_PROMOTION, new Benefit(3_000)
         ));
 
         Benefit totalBenefit = promotionBenefitInfo.getTotalBenefit();
