@@ -31,6 +31,10 @@ public class PromotionStatistics {
         this.afterDiscountAmount = calculateAfterDiscountAmount(orders);
     }
 
+    public static PromotionStatistics emptyInstance(LocalDate localDate, Orders orders) {
+        return new PromotionStatistics(Collections.emptyList(), localDate, orders);
+    }
+
     private Map<PromotionPlan, Giveaway> calculatePromotionGiveaway(LocalDate localDate, Orders orders) {
         Map<PromotionPlan, Giveaway> promotionGiveaway = new EnumMap<>(PromotionPlan.class);
 
