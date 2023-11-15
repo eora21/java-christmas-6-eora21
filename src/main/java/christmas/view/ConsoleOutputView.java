@@ -122,7 +122,7 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printBadge(PromotionBadge badge, Month month) {
         System.out.printf(PRINT_BADGE, month.getValue());
-        System.out.println();
+        System.out.println(badge.getDescription());
     }
 
     @Override
