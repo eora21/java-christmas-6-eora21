@@ -60,4 +60,8 @@ public class View {
     public void showTotalBenefit(Benefit totalBenefit) {
         outputView.printTotalBenefit(totalBenefit);
     }
+
+    public void showAfterDiscountAmount(Amount afterDiscountAmount) {
+        outputView.printAfterDiscountAmount(afterDiscountAmount);
+    }
 }
