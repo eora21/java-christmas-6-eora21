@@ -16,14 +16,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-public class promotionStatistics {
+public class PromotionStatistics {
     private final List<PromotionPlan> promotionPlans;
     private final Map<Promotion, Giveaway> promotionGiveaway;
     private final Map<Promotion, Map<Menu, Discount>> promotionMenuDiscount;
     private final Map<Promotion, Discount> promotionTotalDiscount;
     private final Amount afterDiscountAmount;
 
-    public promotionStatistics(List<PromotionPlan> promotionPlans, LocalDate localDate, Orders orders) {
+    public PromotionStatistics(List<PromotionPlan> promotionPlans, LocalDate localDate, Orders orders) {
         this.promotionPlans = promotionPlans;
         this.promotionGiveaway = calculatePromotionGiveaway(localDate, orders);
         this.promotionMenuDiscount = calculatePromotionMenuDiscount(localDate, orders);

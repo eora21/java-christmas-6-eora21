@@ -49,12 +49,12 @@ public enum PromotionPlan {
         this.promotion = promotion;
     }
 
-    public static promotionStatistics getPromotionStatistics(LocalDate localDate, Orders orders) {
+    public static PromotionStatistics getPromotionStatistics(LocalDate localDate, Orders orders) {
         List<PromotionPlan> promotionPlans = Arrays.stream(PromotionPlan.values())
                 .filter(promotionPlan -> promotionPlan.isDateInPromotionRange(localDate))
                 .toList();
 
-        return new promotionStatistics(promotionPlans, localDate, orders);
+        return new PromotionStatistics(promotionPlans, localDate, orders);
     }
 
     private boolean isDateInPromotionRange(LocalDate localDate) {
