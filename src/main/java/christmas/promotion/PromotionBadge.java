@@ -32,4 +32,8 @@ public enum PromotionBadge {
     private static boolean isGreaterOrEqual(Benefit benefit, PromotionBadge promotionBadge) {
         return 0 <= benefit.compareTo(promotionBadge.benefit);
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
