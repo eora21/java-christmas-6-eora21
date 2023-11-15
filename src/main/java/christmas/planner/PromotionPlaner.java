@@ -4,8 +4,14 @@ import christmas.exception.alert.AlertException;
 import christmas.exception.alert.DateException;
 import christmas.exception.alert.OrderException;
 import christmas.exception.recoverable.RecoverableException;
+import christmas.information.Amount;
 import christmas.order.OrderRequest;
 import christmas.order.Orders;
+import christmas.promotion.PromotionBadge;
+import christmas.promotion.PromotionPlan;
+import christmas.promotion.PromotionStatistics;
+import christmas.promotion.information.Benefit;
+import christmas.promotion.information.PromotionBenefitInfo;
 import christmas.view.View;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -30,6 +36,7 @@ public class PromotionPlaner {
         view.showGreeting(month);
         LocalDate localDate = repeatWhenEnterCorrectAnswer(this::enterRequireDate);
         Orders orders = repeatWhenEnterCorrectAnswer(this::enterOrders);
+        showPromotionResult(localDate, orders);
     }
 
     private LocalDate enterRequireDate() {
@@ -57,5 +64,21 @@ public class PromotionPlaner {
         } catch (RecoverableException | NoSuchElementException ignore) {
             throw new OrderException();
         }
+    }
+
+    private void showPromotionResult(LocalDate localDate, Orders orders) {
+        Amount beforeDiscountAmount = orders.getOrdersTotalAmount();
+        PromotionStatistics promotionStatistics = PromotionPlan.getPromotionStatistics(localDate, orders);
+        PromotionBenefitInfo promotionBenefitInfo = promotionStatistics.getPromotionBenefitInfo();
+        Benefit totalBenefit = promotionBenefitInfo.getTotalBenefit();
+
+        view.showPreviewBenefitsMessage(localDate);
+        view.showOrders(orders);
+        view.showBeforeDiscountAmount(beforeDiscountAmount);
+        view.showGiveaways(promotionStatistics.getGiveaways());
+        view.showPromotionBenefitInfo(promotionBenefitInfo);
+        view.showTotalBenefit(totalBenefit);
+        view.showAfterDiscountAmount(promotionStatistics.getAfterDiscountAmount());
+        view.showBadge(PromotionBadge.getBadge(totalBenefit), month);
     }
 }
