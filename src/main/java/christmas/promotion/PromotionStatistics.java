@@ -67,7 +67,7 @@ public class PromotionStatistics {
         return promotionTotalDiscount;
     }
 
-    public Amount calculateAfterDiscountAmount(Orders orders) {
+    private Amount calculateAfterDiscountAmount(Orders orders) {
         MenuDiscount menuDiscount = zipPromotionMenuDiscount();
         Discount totalDiscount = zipPromotionTotalDiscount();
         return orders.calculateAllDiscount(menuDiscount, totalDiscount);
