@@ -10,7 +10,7 @@ import christmas.promotion.information.MenuDiscount;
 import christmas.promotion.information.PromotionBenefitInfo;
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 
 public class PromotionStatistics {
     private final List<PromotionPlan> promotionPlans;
-    private final Map<Promotion, Giveaway> promotionGiveaway;
-    private final Map<Promotion, Map<Menu, Discount>> promotionMenuDiscount;
-    private final Map<Promotion, Discount> promotionTotalDiscount;
+    private final Map<PromotionPlan, Giveaway> promotionGiveaway;
+    private final Map<PromotionPlan, Map<Menu, Discount>> promotionMenuDiscount;
+    private final Map<PromotionPlan, Discount> promotionTotalDiscount;
     private final Amount afterDiscountAmount;
 
     public PromotionStatistics(List<PromotionPlan> promotionPlans, LocalDate localDate, Orders orders) {
@@ -31,37 +31,37 @@ public class PromotionStatistics {
         this.afterDiscountAmount = calculateAfterDiscountAmount(orders);
     }
 
-    private Map<Promotion, Giveaway> calculatePromotionGiveaway(LocalDate localDate, Orders orders) {
-        Map<Promotion, Giveaway> promotionGiveaway = new HashMap<>();
+    private Map<PromotionPlan, Giveaway> calculatePromotionGiveaway(LocalDate localDate, Orders orders) {
+        Map<PromotionPlan, Giveaway> promotionGiveaway = new EnumMap<>(PromotionPlan.class);
 
         for (PromotionPlan promotionPlan : promotionPlans) {
             Promotion promotion = promotionPlan.getPromotion();
             promotion.getGiveaway(localDate, orders)
-                    .ifPresent(giveaway -> promotionGiveaway.put(promotion, giveaway));
+                    .ifPresent(giveaway -> promotionGiveaway.put(promotionPlan, giveaway));
         }
 
         return promotionGiveaway;
     }
 
-    private Map<Promotion, Map<Menu, Discount>> calculatePromotionMenuDiscount(LocalDate localDate, Orders orders) {
-        Map<Promotion, Map<Menu, Discount>> promotionMenuDiscount = new HashMap<>();
+    private Map<PromotionPlan, Map<Menu, Discount>> calculatePromotionMenuDiscount(LocalDate localDate, Orders orders) {
+        Map<PromotionPlan, Map<Menu, Discount>> promotionMenuDiscount = new EnumMap<>(PromotionPlan.class);
 
         for (PromotionPlan promotionPlan : promotionPlans) {
             Promotion promotion = promotionPlan.getPromotion();
             Map<Menu, Discount> menuDiscount = promotion.calculateMenuDiscount(localDate, orders);
-            promotionMenuDiscount.put(promotion, menuDiscount);
+            promotionMenuDiscount.put(promotionPlan, menuDiscount);
         }
 
         return promotionMenuDiscount;
     }
 
-    private Map<Promotion, Discount> calculatePromotionTotalDiscount(LocalDate localDate, Orders orders) {
-        Map<Promotion, Discount> promotionTotalDiscount = new HashMap<>();
+    private Map<PromotionPlan, Discount> calculatePromotionTotalDiscount(LocalDate localDate, Orders orders) {
+        Map<PromotionPlan, Discount> promotionTotalDiscount = new EnumMap<>(PromotionPlan.class);
 
         for (PromotionPlan promotionPlan : promotionPlans) {
             Promotion promotion = promotionPlan.getPromotion();
             promotion.calculateTotalDiscount(localDate, orders)
-                    .ifPresent(discount -> promotionTotalDiscount.put(promotion, discount));
+                    .ifPresent(discount -> promotionTotalDiscount.put(promotionPlan, discount));
         }
 
         return promotionTotalDiscount;
@@ -95,7 +95,7 @@ public class PromotionStatistics {
     }
 
     public PromotionBenefitInfo getPromotionBenefitInfo() {
-        Map<Promotion, Benefit> promotionBenefit = new HashMap<>();
+        Map<PromotionPlan, Benefit> promotionBenefit = new EnumMap<>(PromotionPlan.class);
 
         mergePromotionGiveawayIntoBenefit(promotionBenefit);
         mergePromotionMenuDiscountIntoBenefit(promotionBenefit);
@@ -104,19 +104,19 @@ public class PromotionStatistics {
         return new PromotionBenefitInfo(promotionBenefit);
     }
 
-    private void mergePromotionGiveawayIntoBenefit(Map<Promotion, Benefit> promotionBenefit) {
-        promotionGiveaway.forEach((promotion, giveaway) ->
-                promotionBenefit.merge(promotion, giveaway.convertToBenefit(), Benefit::sum));
+    private void mergePromotionGiveawayIntoBenefit(Map<PromotionPlan, Benefit> promotionBenefit) {
+        promotionGiveaway.forEach((promotionPlan, giveaway) ->
+                promotionBenefit.merge(promotionPlan, giveaway.convertToBenefit(), Benefit::sum));
     }
 
-    private void mergePromotionMenuDiscountIntoBenefit(Map<Promotion, Benefit> promotionBenefit) {
-        Map<Promotion, Benefit> promotionMenuBenefit = promotionMenuDiscount.entrySet()
+    private void mergePromotionMenuDiscountIntoBenefit(Map<PromotionPlan, Benefit> promotionBenefit) {
+        Map<PromotionPlan, Benefit> promotionMenuBenefit = promotionMenuDiscount.entrySet()
                 .stream()
                 .collect(Collectors.toUnmodifiableMap(Entry::getKey,
                         entry -> zipMenuDiscountToBenefit(entry.getValue())));
 
-        promotionMenuBenefit.forEach((promotion, benefit) ->
-                promotionBenefit.merge(promotion, benefit, Benefit::sum));
+        promotionMenuBenefit.forEach((promotionPlan, benefit) ->
+                promotionBenefit.merge(promotionPlan, benefit, Benefit::sum));
     }
 
     private Benefit zipMenuDiscountToBenefit(Map<Menu, Discount> menuDiscount) {
@@ -127,9 +127,9 @@ public class PromotionStatistics {
                 .convertToBenefit();
     }
 
-    private void mergePromotionTotalDiscountIntoBenefit(Map<Promotion, Benefit> promotionBenefit) {
-        promotionTotalDiscount.forEach((promotion, discount) ->
-                promotionBenefit.merge(promotion, discount.convertToBenefit(), Benefit::sum));
+    private void mergePromotionTotalDiscountIntoBenefit(Map<PromotionPlan, Benefit> promotionBenefit) {
+        promotionTotalDiscount.forEach((promotionPlan, discount) ->
+                promotionBenefit.merge(promotionPlan, discount.convertToBenefit(), Benefit::sum));
     }
 
     public Amount getAfterDiscountAmount() {
