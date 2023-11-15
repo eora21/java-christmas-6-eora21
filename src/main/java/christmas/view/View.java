@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.information.Amount;
 import christmas.order.OrderRequest;
 import christmas.order.Orders;
 import java.time.LocalDate;
@@ -39,5 +40,9 @@ public class View {
 
     public void showOrders(Orders orders) {
         outputView.printOrders(orders);
+    }
+
+    public void showBeforeDiscountAmount(Amount beforeDiscountAmount) {
+        outputView.printBeforeDiscountAmount(beforeDiscountAmount);
     }
 }
