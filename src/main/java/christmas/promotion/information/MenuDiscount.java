@@ -3,13 +3,15 @@ package christmas.promotion.information;
 import christmas.information.Amount;
 import christmas.menu.Menu;
 import christmas.order.OrderDetail;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class MenuDiscount {
     private final Map<Menu, Discount> menuDiscount;
 
     public MenuDiscount(Map<Menu, Discount> menuDiscount) {
-        this.menuDiscount = menuDiscount;
+        this.menuDiscount = new EnumMap<>(Menu.class);
+        this.menuDiscount.putAll(menuDiscount);
     }
 
     public Amount calculateMenuDiscount(OrderDetail orderDetail) {
