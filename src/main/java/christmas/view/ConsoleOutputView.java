@@ -6,6 +6,7 @@ import christmas.menu.Menu;
 import christmas.order.OrderDetail;
 import christmas.order.Orders;
 import christmas.promotion.PromotionBadge;
+import christmas.promotion.PromotionPlan;
 import christmas.promotion.information.Benefit;
 import christmas.promotion.information.Giveaway;
 import christmas.promotion.information.PromotionBenefitInfo;
@@ -24,6 +25,7 @@ public class ConsoleOutputView implements OutputView {
     private static final String AMOUNT = "%,d원\n";
     private static final String PRINT_GIVEAWAYS = "<증정 메뉴>";
     private static final String PRINT_PROMOTION_BENEFIT_INFO = "<혜택 내역>";
+    private static final String PROMOTION_AND_BENEFIT = "%s: -" + AMOUNT;
     private static final String PRINT_TOTAL_BENEFIT = "<총혜택 금액>";
     private static final String PRINT_AFTER_DISCOUNT_AMOUNT = "<할인 후 예상 결제 금액>";
     private static final String PRINT_BADGE = "<%d월 이벤트 배지>\n";
@@ -86,7 +88,19 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printPromotionBenefitInfo(PromotionBenefitInfo promotionBenefitInfo) {
         System.out.println(PRINT_PROMOTION_BENEFIT_INFO);
+        promotionBenefitInfo.getPromotionBenefitInfo()
+                .forEach(this::printPromotionAndBenefit);
         System.out.println();
+    }
+
+    private void printPromotionAndBenefit(PromotionPlan promotionPlan, Benefit benefit) {
+        Amount benefitAmount = benefit.getBenefitAmount();
+
+        if (benefitAmount.isZeroAmount()) {
+            return;
+        }
+
+        System.out.printf(PROMOTION_AND_BENEFIT, promotionPlan.getPromotionName(), benefitAmount.amount());
     }
 
     @Override
