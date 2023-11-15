@@ -43,7 +43,7 @@ public class PromotionPlaner {
     private LocalDate enterRequireDate() {
         try {
             return LocalDate.of(year.getValue(), month.getValue(), view.requireVisitDay(month));
-        } catch (OutOfRangeVisitDayException | DateTimeException ignore) {
+        } catch (RecoverableException | DateTimeException ignore) {
             throw new DateException();
         }
     }
