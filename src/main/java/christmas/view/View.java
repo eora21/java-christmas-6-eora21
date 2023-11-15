@@ -3,6 +3,7 @@ package christmas.view;
 import christmas.information.Amount;
 import christmas.order.OrderRequest;
 import christmas.order.Orders;
+import christmas.promotion.information.Benefit;
 import christmas.promotion.information.Giveaway;
 import christmas.promotion.information.PromotionBenefitInfo;
 import java.time.LocalDate;
@@ -54,5 +55,9 @@ public class View {
 
     public void showPromotionBenefitInfo(PromotionBenefitInfo promotionBenefitInfo) {
         outputView.printPromotionBenefitInfo(promotionBenefitInfo);
+    }
+
+    public void showTotalBenefit(Benefit totalBenefit) {
+        outputView.printTotalBenefit(totalBenefit);
     }
 }
