@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class PromotionPlaner {
+    private static final Amount MIN_PROMOTION_AMOUNT = new Amount(10_000);
     private final View view;
     private final Year year;
     private final Month month;
@@ -36,7 +37,7 @@ public class PromotionPlaner {
         view.showGreeting(month);
         LocalDate localDate = repeatWhenEnterCorrectAnswer(this::enterRequireDate);
         Orders orders = repeatWhenEnterCorrectAnswer(this::enterOrders);
-        showPromotionResult(localDate, orders);
+        showOrdersResult(localDate, orders);
     }
 
     private LocalDate enterRequireDate() {
@@ -66,15 +67,32 @@ public class PromotionPlaner {
         }
     }
 
-    private void showPromotionResult(LocalDate localDate, Orders orders) {
-        Amount beforeDiscountAmount = orders.getOrdersTotalAmount();
-        PromotionStatistics promotionStatistics = PromotionPlan.getPromotionStatistics(localDate, orders);
+    private void showOrdersResult(LocalDate localDate, Orders orders) {
+        view.showPreviewBenefitsMessage(localDate);
+        view.showOrders(orders);
+        view.showPreviewBenefitsMessage(localDate);
+        view.showOrders(orders);
+
+        PromotionStatistics promotionStatistics = getPromotionStatisticsByTotalAmount(localDate, orders);
+        showPromotionResult(promotionStatistics);
+    }
+
+    private PromotionStatistics getPromotionStatisticsByTotalAmount(LocalDate localDate, Orders orders) {
+        Amount totalAmount = orders.getOrdersTotalAmount();
+        view.showBeforeDiscountAmount(totalAmount);
+
+        if (totalAmount.isGreaterOrEqual(MIN_PROMOTION_AMOUNT)) {
+            return PromotionPlan.getPromotionStatistics(localDate, orders);
+        }
+
+        view.showNonPromotion(MIN_PROMOTION_AMOUNT);
+        return PromotionStatistics.emptyInstance(localDate, orders);
+    }
+
+    private void showPromotionResult(PromotionStatistics promotionStatistics) {
         PromotionBenefitInfo promotionBenefitInfo = promotionStatistics.getPromotionBenefitInfo();
         Benefit totalBenefit = promotionBenefitInfo.getTotalBenefit();
 
-        view.showPreviewBenefitsMessage(localDate);
-        view.showOrders(orders);
-        view.showBeforeDiscountAmount(beforeDiscountAmount);
         view.showGiveaways(promotionStatistics.getGiveaways());
         view.showPromotionBenefitInfo(promotionBenefitInfo);
         view.showTotalBenefit(totalBenefit);
