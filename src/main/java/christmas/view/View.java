@@ -3,12 +3,14 @@ package christmas.view;
 import christmas.information.Amount;
 import christmas.order.OrderRequest;
 import christmas.order.Orders;
+import christmas.promotion.PromotionBadge;
 import christmas.promotion.information.Benefit;
 import christmas.promotion.information.Giveaway;
 import christmas.promotion.information.PromotionBenefitInfo;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 
 public class View {
     private final InputView inputView;
@@ -63,5 +65,9 @@ public class View {
 
     public void showAfterDiscountAmount(Amount afterDiscountAmount) {
         outputView.printAfterDiscountAmount(afterDiscountAmount);
+    }
+
+    public void showBadge(PromotionBadge badge, Month month) {
+        outputView.printBadge(badge, month);
     }
 }
