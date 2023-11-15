@@ -30,6 +30,10 @@ public record Amount(int amount) implements Comparable<Amount> {
         return new Amount(Math.max(ZERO_AMOUNT, amount - otherAmount.amount));
     }
 
+    public boolean isZeroAmount() {
+        return amount == ZERO_AMOUNT;
+    }
+
     @Override
     public int compareTo(Amount otherAmount) {
         return Integer.compare(this.amount, otherAmount.amount);
