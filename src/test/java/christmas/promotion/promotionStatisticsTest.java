@@ -90,4 +90,23 @@ class promotionStatisticsTest {
                 .isEqualTo(new Amount(2_000));
         assertThat(promotionStatistics.getAfterDiscountAmount()).isEqualTo(new Amount(98_000));
     }
+
+    @Test
+    @DisplayName("메뉴 할인 시 일치하는 메뉴만 할인하며, 할인가가 넘쳐도 전체 할인에 영향을 끼치지 않는다.")
+    void promotionStatisticsMenuDiscountOnlyEqualMenu() {
+        Promotion promotion = mock(Promotion.class);
+        when(promotion.calculateMenuDiscount(any(), any()))
+                .thenReturn(Map.of(Menu.ICE_CREAM, new Discount(10_000)));
+
+        PromotionPlan promotionPlan = mock(PromotionPlan.class);
+        when(promotionPlan.getPromotion()).thenReturn(promotion);
+
+        PromotionStatistics promotionStatistics = new PromotionStatistics(List.of(promotionPlan),
+                LocalDate.parse("2023-12-25"),
+                new Orders(List.of(new OrderDetail(Menu.ICE_CREAM, 1), new OrderDetail(Menu.ZERO_COLA, 1))));
+
+        assertThat(promotionStatistics.getPromotionBenefitInfo().getTotalBenefit().getBenefitAmount())
+                .isEqualTo(new Amount(10_000));
+        assertThat(promotionStatistics.getAfterDiscountAmount()).isEqualTo(new Amount(3_000));
+    }
 }
