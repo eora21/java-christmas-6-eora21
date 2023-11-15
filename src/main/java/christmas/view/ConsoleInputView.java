@@ -3,6 +3,7 @@ package christmas.view;
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
 import christmas.exception.recoverable.MismatchOrderRequestException;
+import christmas.exception.recoverable.OutOfRangeVisitDayException;
 import christmas.exception.recoverable.ParseIntException;
 import christmas.order.OrderRequest;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.StringTokenizer;
 
 public class ConsoleInputView implements InputView {
     private static final String VISIT_DAY_FORM = "숫자만 입력해 주세요!";
+    private static final int DATE_MIN_RANGE_NUMBER = 1;
+    private static final int DATE_MAX_RANGE_NUMBER = 31;
     private static final String ORDER_REQUEST_DELIMITER = ",";
     private static final String NAME_QUANTITY_DELIMITER = "-";
     private static final int NAME_QUANTITY_TOKEN_SIZE = 2;
@@ -23,7 +26,13 @@ public class ConsoleInputView implements InputView {
 
     @Override
     public int enterVisitDay() {
-        return parseInt(readLine());
+        int visitDay = parseInt(readLine());
+
+        if (visitDay < DATE_MIN_RANGE_NUMBER || DATE_MAX_RANGE_NUMBER < visitDay) {
+            throw new OutOfRangeVisitDayException();
+        }
+
+        return visitDay;
     }
 
     private int parseInt(String text) {
