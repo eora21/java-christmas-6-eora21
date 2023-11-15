@@ -88,7 +88,7 @@ public class PromotionStatistics {
                 .orElseGet(() -> new Discount(Amount.createZeroAmount()));
     }
 
-    public List<Giveaway> getGiveaways(Map<Promotion, Giveaway> promotionGiveaway) {
+    public List<Giveaway> getGiveaways() {
         return promotionGiveaway.values()
                 .stream()
                 .toList();
