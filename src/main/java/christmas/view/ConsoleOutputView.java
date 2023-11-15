@@ -13,6 +13,9 @@ import christmas.promotion.information.PromotionBenefitInfo;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class ConsoleOutputView implements OutputView {
     private static final String GREETING = "안녕하세요! 우테코 식당 %d월 이벤트 플래너입니다.\n";
@@ -24,6 +27,7 @@ public class ConsoleOutputView implements OutputView {
     private static final String PRINT_BEFORE_DISCOUNT_AMOUNT = "<할인 전 총주문 금액>";
     private static final String AMOUNT = "%,d원\n";
     private static final String PRINT_GIVEAWAYS = "<증정 메뉴>";
+    private static final String NONE = "없음";
     private static final String PRINT_PROMOTION_BENEFIT_INFO = "<혜택 내역>";
     private static final String BENEFIT = "-" + AMOUNT;
     private static final String PROMOTION_AND_BENEFIT = "%s: " + BENEFIT;
@@ -76,8 +80,17 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printGiveaways(List<Giveaway> giveaways) {
         System.out.println(PRINT_GIVEAWAYS);
-        giveaways.forEach(this::printGiveaway);
+        printEachGiveaway(giveaways);
         System.out.println();
+    }
+
+    private void printEachGiveaway(List<Giveaway> giveaways) {
+        if (giveaways.isEmpty()) {
+            System.out.println(NONE);
+            return;
+        }
+
+        giveaways.forEach(this::printGiveaway);
     }
 
     private void printGiveaway(Giveaway giveaway) {
@@ -89,18 +102,34 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printPromotionBenefitInfo(PromotionBenefitInfo promotionBenefitInfo) {
         System.out.println(PRINT_PROMOTION_BENEFIT_INFO);
-        promotionBenefitInfo.getPromotionBenefitInfo()
-                .forEach(this::printPromotionAndBenefit);
+        printEachPromotionAndBenefit(promotionBenefitInfo.getPromotionBenefitInfo());
         System.out.println();
+    }
+
+    private void printEachPromotionAndBenefit(Map<PromotionPlan, Benefit> promotionAndBenefit) {
+        Map<PromotionPlan, Benefit> existBenefitPromotions = promotionAndBenefit.entrySet()
+                .stream()
+                .filter(entry -> isExistBenefit(entry.getValue()))
+                .collect(Collectors.toUnmodifiableMap(Entry::getKey, Entry::getValue));
+        printExistBenefitPromotions(existBenefitPromotions);
+    }
+
+    private boolean isExistBenefit(Benefit benefit) {
+        Amount benefitAmount = benefit.getBenefitAmount();
+        return !benefitAmount.isZeroAmount();
+    }
+
+    private void printExistBenefitPromotions(Map<PromotionPlan, Benefit> existBenefitPromotions) {
+        if (existBenefitPromotions.isEmpty()) {
+            System.out.println(NONE);
+            return;
+        }
+
+        existBenefitPromotions.forEach(this::printPromotionAndBenefit);
     }
 
     private void printPromotionAndBenefit(PromotionPlan promotionPlan, Benefit benefit) {
         Amount benefitAmount = benefit.getBenefitAmount();
-
-        if (benefitAmount.isZeroAmount()) {
-            return;
-        }
-
         System.out.printf(PROMOTION_AND_BENEFIT, promotionPlan.getPromotionName(), benefitAmount.amount());
     }
 
