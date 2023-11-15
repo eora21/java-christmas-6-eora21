@@ -3,6 +3,7 @@ package christmas.planner;
 import christmas.exception.alert.AlertException;
 import christmas.exception.alert.DateException;
 import christmas.exception.alert.OrderException;
+import christmas.exception.recoverable.OutOfRangeVisitDayException;
 import christmas.exception.recoverable.RecoverableException;
 import christmas.information.Amount;
 import christmas.order.OrderRequest;
@@ -18,7 +19,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.function.Supplier;
 
 public class PromotionPlaner {
@@ -42,7 +42,7 @@ public class PromotionPlaner {
     private LocalDate enterRequireDate() {
         try {
             return LocalDate.of(year.getValue(), month.getValue(), view.requireVisitDay(month));
-        } catch (DateTimeException ignore) {
+        } catch (OutOfRangeVisitDayException | DateTimeException ignore) {
             throw new DateException();
         }
     }
@@ -61,7 +61,7 @@ public class PromotionPlaner {
         try {
             List<OrderRequest> orderRequests = view.requireOrders();
             return Orders.newInstance(orderRequests);
-        } catch (RecoverableException | NoSuchElementException ignore) {
+        } catch (RecoverableException ignore) {
             throw new OrderException();
         }
     }
