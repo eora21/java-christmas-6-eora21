@@ -21,6 +21,7 @@ public class ConsoleOutputView implements OutputView {
     private static final String PRINT_ORDERS = "<주문 메뉴>";
     private static final String ORDER_DETAIL = "%s %d개\n";
     private static final String PRINT_BEFORE_DISCOUNT_AMOUNT = "<할인 전 총주문 금액>";
+    private static final String AMOUNT = "%,d원\n";
     private static final String PRINT_GIVEAWAYS = "<증정 메뉴>";
     private static final String PRINT_PROMOTION_BENEFIT_INFO = "<혜택 내역>";
     private static final String PRINT_TOTAL_BENEFIT = "<총혜택 금액>";
@@ -65,6 +66,7 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printBeforeDiscountAmount(Amount beforeDiscountAmount) {
         System.out.println(PRINT_BEFORE_DISCOUNT_AMOUNT);
+        System.out.printf(AMOUNT, beforeDiscountAmount.amount());
         System.out.println();
     }
 
@@ -83,12 +85,15 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printTotalBenefit(Benefit totalBenefit) {
         System.out.println(PRINT_TOTAL_BENEFIT);
+        Amount benefitAmount = totalBenefit.getBenefitAmount();
+        System.out.printf(AMOUNT, benefitAmount.amount());
         System.out.println();
     }
 
     @Override
     public void printAfterDiscountAmount(Amount afterDiscountAmount) {
         System.out.println(PRINT_AFTER_DISCOUNT_AMOUNT);
+        System.out.printf(AMOUNT, afterDiscountAmount.amount());
         System.out.println();
     }
 
