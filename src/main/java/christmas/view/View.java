@@ -4,6 +4,7 @@ import christmas.information.Amount;
 import christmas.order.OrderRequest;
 import christmas.order.Orders;
 import christmas.promotion.information.Giveaway;
+import christmas.promotion.information.PromotionBenefitInfo;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -49,5 +50,9 @@ public class View {
 
     public void showGiveaways(List<Giveaway> giveaways) {
         outputView.printGiveaways(giveaways);
+    }
+
+    public void showPromotionBenefitInfo(PromotionBenefitInfo promotionBenefitInfo) {
+        outputView.printPromotionBenefitInfo(promotionBenefitInfo);
     }
 }
