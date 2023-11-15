@@ -25,16 +25,16 @@ public class ConsoleOutputView implements OutputView {
     private static final String PRINT_ORDERS = "<주문 메뉴>";
     private static final String MENU_QUANTITY = "%s %d개\n";
     private static final String PRINT_BEFORE_DISCOUNT_AMOUNT = "<할인 전 총주문 금액>";
-    private static final String AMOUNT = "%,d원\n";
+    private static final String AMOUNT = "%,d원";
     private static final String PRINT_GIVEAWAYS = "<증정 메뉴>";
     private static final String NONE = "없음";
     private static final String PRINT_PROMOTION_BENEFIT_INFO = "<혜택 내역>";
-    private static final String PROMOTION_AND_BENEFIT = "%s: " + AMOUNT;
+    private static final String PROMOTION_AND_BENEFIT = "%s: " + AMOUNT + "\n";
     private static final String PRINT_TOTAL_BENEFIT = "<총혜택 금액>";
     private static final String PRINT_AFTER_DISCOUNT_AMOUNT = "<할인 후 예상 결제 금액>";
     private static final String PRINT_BADGE = "<%d월 이벤트 배지>\n";
     private static final String ERROR = "[ERROR] ";
-    private static final String PRINT_NON_PROMOTION = "혜택을 받기 위해선 최소" + AMOUNT + " 이상 주문하셔야 합니다.\n";
+    private static final String PRINT_NON_PROMOTION = "혜택을 받기 위해선 최소 " + AMOUNT + " 이상 주문하셔야 합니다.\n\n";
 
     @Override
     public void printGreeting(Month month) {
@@ -74,6 +74,7 @@ public class ConsoleOutputView implements OutputView {
     public void printBeforeDiscountAmount(Amount beforeDiscountAmount) {
         System.out.println(PRINT_BEFORE_DISCOUNT_AMOUNT);
         System.out.printf(AMOUNT, beforeDiscountAmount.amount());
+        System.out.println();
         System.out.println();
     }
 
@@ -139,12 +140,14 @@ public class ConsoleOutputView implements OutputView {
         Amount benefitAmount = totalBenefit.getBenefitAmount();
         System.out.printf(AMOUNT, -benefitAmount.amount());
         System.out.println();
+        System.out.println();
     }
 
     @Override
     public void printAfterDiscountAmount(Amount afterDiscountAmount) {
         System.out.println(PRINT_AFTER_DISCOUNT_AMOUNT);
         System.out.printf(AMOUNT, afterDiscountAmount.amount());
+        System.out.println();
         System.out.println();
     }
 
