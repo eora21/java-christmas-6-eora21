@@ -34,6 +34,7 @@ public class ConsoleOutputView implements OutputView {
     private static final String PRINT_AFTER_DISCOUNT_AMOUNT = "<할인 후 예상 결제 금액>";
     private static final String PRINT_BADGE = "<%d월 이벤트 배지>\n";
     private static final String ERROR = "[ERROR] ";
+    private static final String PRINT_NON_PROMOTION = "혜택을 받기 위해선 최소" + AMOUNT + " 이상 주문하셔야 합니다.\n";
 
     @Override
     public void printGreeting(Month month) {
@@ -156,5 +157,10 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printExceptionMessage(String message) {
         System.out.println(ERROR + message);
+    }
+
+    @Override
+    public void printNonPromotion(Amount minPromotionAmount) {
+        System.out.printf(PRINT_NON_PROMOTION, minPromotionAmount.amount());
     }
 }
