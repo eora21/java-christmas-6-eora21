@@ -3,7 +3,6 @@ package christmas.planner;
 import christmas.exception.alert.AlertException;
 import christmas.exception.alert.DateException;
 import christmas.exception.alert.OrderException;
-import christmas.exception.recoverable.OutOfRangeVisitDayException;
 import christmas.exception.recoverable.RecoverableException;
 import christmas.information.Amount;
 import christmas.order.OrderRequest;
