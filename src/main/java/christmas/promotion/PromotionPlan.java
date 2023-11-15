@@ -37,15 +37,15 @@ public enum PromotionPlan {
             new ChristmasGiveawayPromotion());
 
     private final PromotionTimeFrame promotionTimeFrame;
-    private final String eventName;
+    private final String promotionName;
     private final Promotion promotion;
 
-    PromotionPlan(String startDate, String endDate, String eventName, Promotion promotion) {
+    PromotionPlan(String startDate, String endDate, String promotionName, Promotion promotion) {
         LocalDate promotionStartDate = LocalDate.parse(startDate);
         LocalDate promotionEndDate = LocalDate.parse(endDate);
 
         this.promotionTimeFrame = new PromotionTimeFrame(promotionStartDate, promotionEndDate);
-        this.eventName = eventName;
+        this.promotionName = promotionName;
         this.promotion = promotion;
     }
 
@@ -63,5 +63,9 @@ public enum PromotionPlan {
 
     public Promotion getPromotion() {
         return promotion;
+    }
+
+    public String getPromotionName() {
+        return promotionName;
     }
 }
