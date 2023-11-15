@@ -2,17 +2,18 @@ package christmas.promotion.information;
 
 import christmas.information.Amount;
 import christmas.promotion.Promotion;
+import christmas.promotion.PromotionPlan;
 import java.util.Map;
 import java.util.Optional;
 
 public class PromotionBenefitInfo {
-    private final Map<Promotion, Benefit> promotionBenefitInfo;
+    private final Map<PromotionPlan, Benefit> promotionBenefitInfo;
 
-    public PromotionBenefitInfo(Map<Promotion, Benefit> promotionBenefitInfo) {
+    public PromotionBenefitInfo(Map<PromotionPlan, Benefit> promotionBenefitInfo) {
         this.promotionBenefitInfo = promotionBenefitInfo;
     }
 
-    public Map<Promotion, Benefit> getPromotionBenefitInfo() {
+    public Map<PromotionPlan, Benefit> getPromotionBenefitInfo() {
         return promotionBenefitInfo;
     }
 
