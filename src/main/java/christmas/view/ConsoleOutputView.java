@@ -115,7 +115,7 @@ public class ConsoleOutputView implements OutputView {
     @Override
     public void printAfterDiscountAmount(Amount afterDiscountAmount) {
         System.out.println(PRINT_AFTER_DISCOUNT_AMOUNT);
-        System.out.printf(BENEFIT, afterDiscountAmount.amount());
+        System.out.printf(AMOUNT, afterDiscountAmount.amount());
         System.out.println();
     }
 
