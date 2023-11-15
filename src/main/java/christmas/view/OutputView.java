@@ -34,4 +34,6 @@ public interface OutputView {
     void printBadge(PromotionBadge badge, Month month);
 
     void printExceptionMessage(String message);
+
+    void printNonPromotion(Amount minPromotionAmount);
 }
