@@ -1,6 +1,8 @@
 package christmas.information;
 
 import christmas.exception.fatal.NegativeAmountException;
+import christmas.promotion.PromotionBadge;
+import christmas.promotion.information.Benefit;
 
 public record Amount(int amount) implements Comparable<Amount> {
     private static final int ZERO_AMOUNT = 0;
@@ -37,5 +39,9 @@ public record Amount(int amount) implements Comparable<Amount> {
     @Override
     public int compareTo(Amount otherAmount) {
         return Integer.compare(this.amount, otherAmount.amount);
+    }
+
+    public boolean isGreaterOrEqual(Amount otherAmount) {
+        return 0 <= this.compareTo(otherAmount);
     }
 }

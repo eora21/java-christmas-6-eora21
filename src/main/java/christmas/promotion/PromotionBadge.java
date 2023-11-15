@@ -24,13 +24,9 @@ public enum PromotionBadge {
         return Arrays.stream(PromotionBadge.values())
                 .sorted(Comparator.comparing(promotionBadge -> promotionBadge.benefit))
                 .sorted(Comparator.reverseOrder())
-                .filter(promotionBadge -> isGreaterOrEqual(benefit, promotionBadge))
+                .filter(promotionBadge -> benefit.isGreaterOrEqual(promotionBadge.benefit))
                 .findFirst()
                 .orElse(NONE);
-    }
-
-    private static boolean isGreaterOrEqual(Benefit benefit, PromotionBadge promotionBadge) {
-        return 0 <= benefit.compareTo(promotionBadge.benefit);
     }
 
     public String getDescription() {

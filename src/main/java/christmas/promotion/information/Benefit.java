@@ -27,4 +27,8 @@ public class Benefit implements Comparable<Benefit> {
     public int compareTo(Benefit o) {
         return benefitAmount.compareTo(o.benefitAmount);
     }
+
+    public boolean isGreaterOrEqual(Benefit otherBenefit) {
+        return benefitAmount.isGreaterOrEqual(otherBenefit.benefitAmount);
+    }
 }
