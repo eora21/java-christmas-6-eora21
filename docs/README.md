@@ -271,5 +271,30 @@ private 필드로 작성되어 있을 시, 리플렉션을 사용하여 가져�
 이 때 이미 할인 관련한 데이터가 생성되는데, 이러한 흐름을 다른 클래스(할인을 담당하는 클래스)에서 가져가려 했으나 이미 완성된 데이터를 끌어오는 형태였기에 의미가 없다고 판단했습니다.
 할인의 흐름을 따로 가져가기 위해 강제로 데이터를 분해시켜도 이벤트의 결과에 따라 혜택을 구할 수 있기 때문에 오히려 코드 파악이 힘들어지는 형태 및 비효율적인 구성을 하게 되는 듯 했습니다.
 하루 넘게 이 상황을 어떻게 타파해야 할 지 고민하다가, 결국 지금과 같은 구조를 만들게 되었습니다.
+# 깨달은 점
+## Mock
+인터페이스를 mock 선언하고 when thenReturn을 사용하여 특정 메서드 호출 시 원하는 값을 반환할 수 있도록 하였습니다.
+```java
+Promotion promotion = mock(Promotion.class);  
+
+PromotionPlan promotionPlan = mock(PromotionPlan.class);  
+when(promotionPlan.getPromotion()).thenReturn(promotion);  
+  
+PromotionStatistics promotionStatistics = new PromotionStatistics(List.of(promotionPlan),  
+        LocalDate.parse("2023-12-25"),  
+        new Orders(List.of(new OrderDetail(Menu.ICE_CREAM, 20))));  
+
+when(promotion.calculateTotalDiscount(any(), any()))  
+        .thenReturn(Optional.of(new Discount(2_000)));  
+        
+assertThat(promotionStatistics.getPromotionBenefitInfo().getTotalBenefit().getBen
+```
+그러나 정작 원하는 값이 나오지 않았습니다. 파라미터를 변경해보기도 하고, any()를 좀 더 자세히 작성해보기도 하고, 테스트용 인터페이스를 따로 만들어서 수행해보기도 했습니다. 그러나 디버그를 하면서, 스텁이 전혀 되어있지 않은 것을 발견했습니다. 혹시 몰라 when thenReturn을 모킹 객체 바로 밑에 작성하였더니 원하는 대로 작동하는 것을 발견했습니다.
+해당 문제가 발생한 이유는, `PromotionStatistics`의 생성과 동시에 해당 메서드가 동작하는 이유였습니다. 즉, 타이밍 상으로 아직 아무런 스텁이 되어 있지 않은 상태에서 코드를 동작시키니 당연히 원치 않는 결과가 나오는 것이었습니다.
+생성과 동시에 메서드 작동을 생각하지 못 하고 있다 발생한 문제입니다. 앞으로는 더 심혈을 기울여서 테스트 코드를 작성해야겠다고 생각했습니다.
+## 팩터리 클래스와 정적 팩터리 메서드 패턴
+사용자의 주문 요청을 주문 정보로 바꿔주는 팩터리 역할의 클래스가 있었습니다. 초기 구상 시 작성하고, 테스트코드도 구현해 두었습니다.
+다만 코드를 조합하며 해당 클래스와 똑같은 행동을 주문의 정적 팩터리 메서드로 구현하였고, 이것만을 이용하였습니다.
+팩터리 클래스를 잘 만들어두어도, 프로그래머가 해당 존재를 모른다면 이처럼 중복된 코드를 작성하게 되리라는 것을 몸소 체감하였습니다.
 # 느낀 점
 지금 생각하고 있는 구조가 좋은 건지, 나쁜 건지 알 수 없다는 게 마음에 걸렸습니다. 다른 사람들과 이야기하며 생각을 나누고 싶었습니다.
